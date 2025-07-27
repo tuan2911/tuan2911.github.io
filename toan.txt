@@ -1,0 +1,19 @@
+TITLE: 📝 Bài kiểm tra Môn Toán
+
+Q: Kết quả của phép tính 5 x 8 là bao nhiêu?
+- 35
+- 40
+- 45
+A: 40
+
+Q: Một hình vuông có cạnh 4cm thì chu vi là bao nhiêu?
+- 8cm
+- 12cm
+- 16cm
+A: 16cm
+
+Q: Số lớn nhất có 3 chữ số là số nào?
+- 999
+- 100
+- 987
+A: 999
