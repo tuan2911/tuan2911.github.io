@@ -113,11 +113,10 @@
                 answers: answersObject
             };
             
+            // Bước quan trọng: Lưu dữ liệu vào bộ nhớ của trình duyệt
             localStorage.setItem('submissionData', JSON.stringify(submissionData));
             
-            // DÒNG CODE GỠ LỖI
-            alert('Đã lưu dữ liệu thành công! Chuẩn bị chuyển sang trang kết quả.');
-            
+            // Chuyển đến trang kết quả
             window.location.href = 'ket-qua.html';
         });
     </script>
