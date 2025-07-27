@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài kiểm tra Mệnh đề</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Configure MathJax BEFORE loading the main script -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']] // For inline math
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <!-- MathJax CDN for LaTeX rendering -->
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .quiz-container {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .question-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a202c;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .answer-option {
+            background-color: #edf2f7;
+            border: 2px solid #cbd5e0;
+            border-radius: 12px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            font-size: 1.1rem;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .answer-option:hover {
+            background-color: #e2e8f0;
+            border-color: #a0aec0;
+        }
+        .answer-option.selected {
+            background-color: #bee3f8;
+            border-color: #3182ce;
+            font-weight: 600;
+        }
+        .answer-option.correct {
+            background-color: #c6f6d5;
+            border-color: #38a169;
+            font-weight: 600;
+        }
+        .answer-option.incorrect {
+            background-color: #fed7d7;
+            border-color: #e53e3e;
+            font-weight: 600;
+        }
+        .rationale {
+            font-size: 0.95rem;
+            color: #4a5568;
+            margin-top: 8px;
+            padding: 8px 12px;
+            background-color: #f7fafc;
+            border-left: 4px solid #a0aec0;
+            border-radius: 4px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            flex-grow: 1;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #4299e1;
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary:hover {
+            background-color: #3182ce;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #2d3748;
+            border: 2px solid #cbd5e0;
+        }
+        .btn-secondary:hover {
+            background-color: #cbd5e0;
+            border-color: #a0aec0;
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .result-screen {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a202c;
+        }
+        .result-score {
+            font-size: 3rem;
+            color: #4299e1;
+            margin: 16px 0;
+        }
+        .result-message {
+            font-size: 1.2rem;
+            color: #4a5568;
+        }
+        /* Removed hint-text style as hint is removed */
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div id="quiz-content">
+            <div class="question-text" id="question-text"></div>
+            <div id="answer-options" class="flex flex-col gap-4">
+                <!-- Answer options will be rendered here -->
+            </div>
+            <!-- Removed hint-text div -->
+            <div class="button-group">
+                <button class="btn btn-secondary" id="prev-btn" disabled>Câu trước</button>
+                <button class="btn btn-primary" id="next-btn">Câu tiếp theo</button>
+            </div>
+        </div>
+        <div id="result-screen" class="hidden result-screen">
+            <p>Bạn đã hoàn thành bài kiểm tra!</p>
+            <p class="result-score" id="final-score">0/10</p>
+            <p class="result-message" id="result-message"></p>
+            <button class="btn btn-primary mt-8" id="restart-btn">Làm lại</button>
+        </div>
+    </div>
+
+    <script>
+        // Quiz data
+        const quizQuestions = [
+            {
+                "question": "Trong các khẳng định sau, khẳng định nào là một mệnh đề?",
+                "answerOptions": [
+                    {
+                        "text": "Toán học thật thú vị!",
+                        "rationale": "Đây là một câu cảm thán, thể hiện cảm xúc cá nhân chứ không phải là một khẳng định có tính đúng sai.",
+                        "isCorrect": false
+                    },
+                    {
+                        "text": "Phương trình $x - 1 = 0$.",
+                        "rationale": "Tính đúng sai của khẳng định này phụ thuộc vào giá trị của biến $x$, do đó nó là một mệnh đề chứa biến.",
+                        "isCorrect": false
+                    },
+                    {
+                        "text": "Số 15 là một số nguyên tố.",
+                        "rationale": "Đây là một khẳng định cụ thể và có thể xác định được rằng nó sai, do đó nó là một mệnh đề.",
+                        "isCorrect": true
+                    },
+                    {
+                        "text": "Bạn có thích học Toán không?",
+                        "rationale": "Đây là một câu hỏi, không phải là một khẳng định có thể xác định tính đúng sai.",
+                        "isCorrect": false
+                    }
+                ]
+                // Hint removed
+            },
+            {
+                "question": "Mệnh đề kéo theo $P \\Rightarrow Q$ chỉ sai trong trường hợp nào?",
+                // Hint removed
+                "answerOptions": [
+                    {
+                        "text": "$P$ đúng và $Q$ đúng.",
+                        "rationale": "Trường hợp này phù hợp với mệnh đề kéo theo; giả thiết đúng dẫn đến kết luận đúng.",
+                        "isCorrect": false
+                    },
+                    {
+                        "text": "$P$ sai và $Q$ sai.", // Changed option 2 text
+                        "rationale": "Khi giả thiết sai, mệnh đề kéo theo vẫn được coi là đúng.",
+                        "isCorrect": false
+                    },
+                    {
+                        "text": "$P$ đúng và $Q$ sai.",
+                        "rationale": "Đây là trường hợp duy nhất mà mệnh đề kéo theo bị vi phạm: từ một giả thiết đúng lại suy ra một một kết luận sai.",
+                        "isCorrect": true
+                    },
+                    {
+                        "text": "$P$ sai và $Q$ đúng.",
+                        "rationale": "Khi giả thiết sai, mệnh đề kéo theo luôn được coi là đúng, bất kể kết luận như thế nào.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "Cho mệnh đề $P$: 'Tứ giác ABCD là hình vuông'. Mệnh đề phủ định $\\overline{P}$ là gì?",
+                // Hint removed
+                "answerOptions": [
+                    {
+                        "text": "Tứ giác ABCD không phải là hình vuông.",
+                        "rationale": "Đây là cách diễn đạt chính xác phủ định của mệnh đề gốc, bao gồm mọi trường hợp tứ giác không phải là hình vuông.",
+                        "isCorrect": true
+                    },
+                    {
+                        "text": "Tứ giác ABCD là hình chữ nhật.",
+                        "rationale": "Đây chỉ là một trong nhiều trường hợp mà tứ giác không phải là hình vuông, không phải là phủ định hoàn toàn.",
+                        "isCorrect": false
+                    },
+                    {
+                        "text": "Tứ giác ABCD là hình thoi.",
+                        "rationale": "Tương tự như hình chữ nhật, đây chỉ là một trường hợp cụ thể và không phải là mệnh đề phủ định.",
+                        "isCorrect": false
+                    },
+                    {
+                        "text": "Tứ giác ABCD có bốn cạnh không bằng nhau.",
+                        "rationale": "Đây cũng chỉ là một trong nhiều khả năng khi tứ giác không phải là hình vuông.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "Mệnh đề $Q \\Rightarrow P$ được gọi là gì của mệnh đề $P \\Rightarrow Q$?",
+                // Hint removed
+                "answerOptions": [
+                    {
+                        "text": "Mệnh đề tương đương",
+                        "rationale": "Sự tương đương đòi hỏi cả mệnh đề gốc và mệnh đề đảo của nó đều phải đúng, đây là tên của một mối quan hệ, không phải của mệnh đề mới.",
+                        "isCorrect": false
+                    },
+                    {
+                        "text": "Mệnh đề phủ định",
+                        "rationale": "Phủ định là khẳng định điều ngược lại, không phải là việc hoán đổi các thành phần.",
+                        "isCorrect": false
+                    },
+                    {
+                        "text": "Mệnh đề đảo",
+                        "rationale": "Đây là thuật ngữ chính xác cho mệnh đề được hình thành bằng cách đảo ngược vai trò của giả thiết và kết luận.",
+                        "isCorrect": true
+                    },
+                    {
+                        "text": "Mệnh đề kéo theo",
+                        "rationale": "Đây là tên gọi chung cho bất kỳ mệnh đề 'nếu-thì' nào, không phải là mối quan hệ cụ thể ở đây.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "Trong một định lí có dạng $P \\Rightarrow Q$, $P$ là điều kiện gì để có $Q$?",
+                // Hint removed
+                "answerOptions": [
+                    {
+                        "text": "Điều kiện cần",
+                        "rationale": "Q là điều kiện cần để có P, không phải ngược lại.",
+                        "isCorrect": false
+                    },
+                    {
+                        "text": "Điều kiện đủ",
+                        "rationale": "Sự đúng đắn của P là đủ để đảm bảo sự đúng đắn của Q.",
+                        "isCorrect": true
+                    },
+                    {
+                        "text": "Điều kiện cần và đủ",
+                        "rationale": "Điều này chỉ đúng khi mệnh đề là tương đương ($P \\Leftrightarrow Q$).",
+                        "isCorrect": false
+                    },
+                    {
+                        "text": "Không là điều kiện gì",
+                        "rationale": "Trong một định lí kéo theo, luôn có mối quan hệ điều kiện giữa giả thiết và kết luận.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "Mệnh đề '$\\forall x \\in \\mathbb{R}, x^2 + 1 > 0$' được phát biểu như thế nào?",
+                // Hint removed
+                "answerOptions": [
+                    {
+                        "text": "Tồn tại số thực $x$ sao cho $x^2 + 1 > 0$.",
+                        "rationale": "Cách phát biểu này tương ứng với ký hiệu tồn tại ($\\exists$), không phải ký hiệu với mọi ($\\forall$).",
+                        "isCorrect": false
+                    },
+                    {
+                        "text": "Với mọi số thực $x$, ta có $x^2 + 1 > 0$.",
+                        "rationale": "Đây là cách diễn đạt bằng lời chính xác của mệnh đề toán học đã cho.",
+                        "isCorrect": true
+                    },
+                    {
+                        "text": "Có ít nhất một số thực $x$ sao cho $x^2 + 1 > 0$.",
+                        "rationale": "Đây cũng là một cách diễn đạt khác của ký hiệu tồn tại ($\\exists$).",
+                        "isCorrect": false
+                    },
+                    {
+                        "text": "Nếu $x$ là số thực thì $x^2 + 1$ là số dương.",
+                        "rationale": "Mặc dù đúng về mặt logic, nhưng 'Với mọi' là cách dịch trực tiếp nhất của ký hiệu $\\forall$.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "Mệnh đề '$\\exists x \\in \\mathbb{Z}, x = x^2$' là đúng hay sai?",
+                // Hint removed
+                "answerOptions": [
+                    {
+                        "text": "Đúng",
+                        "rationale": "Mệnh đề này đúng vì có ít nhất một số nguyên thỏa mãn, ví dụ $x=1$ (vì $1 = 1^2$) hoặc $x=0$ (vì $0 = 0^2$).",
+                        "isCorrect": true
+                    },
+                    {
+                        "text": "Sai",
+                        "rationale": "Mệnh đề này chỉ sai nếu không có số nguyên nào thỏa mãn điều kiện.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "Nếu $P$ là 'điều kiện cần và đủ' để có $Q$， mệnh đề nào sau đây thể hiện chính xác mối quan hệ đó?",
+                // Hint removed
+                "answerOptions": [
+                    {
+                        "text": "$P \\Rightarrow Q$",
+                        "rationale": "Ký hiệu này chỉ có nghĩa là P là điều kiện đủ cho Q.",
+                        "isCorrect": false
+                    },
+                    {
+                        "text": "$Q \\Rightarrow P$",
+                        "rationale": "Ký hiệu này chỉ có nghĩa là P là điều kiện cần cho Q.",
+                        "isCorrect": false
+                    },
+                    {
+                        "text": "$P \\Leftrightarrow Q$",
+                        "rationale": "Ký hiệu tương đương hai chiều này thể hiện chính xác mối quan hệ 'khi và chỉ khi', tức là điều kiện cần và đủ.",
+                        "isCorrect": true
+                    },
+                    {
+                        "text": "$\\overline{P} \\Rightarrow \\overline{Q}$",
+                        "rationale": "Đây là mệnh đề phản đảo của $Q \\Rightarrow P$, không phải là mệnh đề tương đương.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "Phủ định của mệnh đề '$\\forall x \\in \\mathbb{R}, P(x)$' là gì?",
+                // Hint removed
+                "answerOptions": [
+                    {
+                        "text": "$\\forall x \\in \\mathbb{R}, \\overline{P(x)}$",
+                        "rationale": "Phủ định của 'với mọi' không phải là 'với mọi phủ định'.",
+                        "isCorrect": false
+                    },
+                    {
+                        "text": "$\\exists x \\in \\mathbb{R}, \\overline{P(x)}$",
+                        "rationale": "Phủ định của việc một điều gì đó đúng cho tất cả các phần tử là việc tồn tại ít nhất một phần tử mà điều đó không đúng.",
+                        "isCorrect": true
+                    },
+                    {
+                        "text": "$\\forall x \\notin \\mathbb{R}, P(x)$",
+                        "rationale": "Phủ định không thay đổi tập hợp mà biến thuộc về.",
+                        "isCorrect": false
+                    },
+                    {
+                        "text": "$\\exists x \\in \\mathbb{R}, P(x)$",
+                        "rationale": "Đây là một mệnh đề khác, không phải là phủ định của mệnh đề ban đầu.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "Xét mệnh đề: 'Nếu một tam giác có hai góc bằng $60^\\circ$ thì tam giác đó là tam giác đều'. Mệnh đề đảo của nó là gì?",
+                // Hint removed
+                "answerOptions": [
+                    {
+                        "text": "Nếu một tam giác là tam giác đều thì nó có hai góc bằng $60^\\circ$.",
+                        "rationale": "Đây là mệnh đề được hình thành bằng cách hoán đổi giả thiết và kết luận của mệnh đề ban đầu.",
+                        "isCorrect": true
+                    },
+                    {
+                        "text": "Nếu một tam giác không phải là tam giác đều thì nó không có hai góc bằng $60^\\circ$.",
+                        "rationale": "Đây là mệnh đề phản đảo, không phải mệnh đề đảo.",
+                        "isCorrect": false
+                    },
+                    {
+                        "text": "Một tam giác là tam giác đều khi và chỉ khi nó có hai góc bằng $60^\\circ$.",
+                        "rationale": "Đây là mệnh đề tương đương, kết hợp cả mệnh đề gốc và mệnh đề đảo.",
+                        "isCorrect": false
+                    },
+                    {
+                        "text": "Nếu một tam giác không có hai góc bằng $60^\\circ$ thì nó không phải là tam giác đều.",
+                        "rationale": "Đây là mệnh đề phủ định của mệnh đề đảo, không phải mệnh đề đảo.",
+                        "isCorrect": false
+                    }
+                ]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(quizQuestions.length).fill(null);
+        let score = 0;
+
+        const questionTextElement = document.getElementById('question-text');
+        const answerOptionsElement = document.getElementById('answer-options');
+        // const hintTextElement = document.getElementById('hint-text'); // Removed hint element
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const quizContentElement = document.getElementById('quiz-content');
+        const resultScreenElement = document.getElementById('result-screen');
+        const finalScoreElement = document.getElementById('final-score');
+        const resultMessageElement = document.getElementById('result-message');
+        const restartBtn = document.getElementById('restart-btn');
+
+        // Function to render the current question
+        function renderQuestion() {
+            const question = quizQuestions[currentQuestionIndex];
+            questionTextElement.innerHTML = `${currentQuestionIndex + 1}. ${question.question}`;
+            answerOptionsElement.innerHTML = '';
+            // hintTextElement.textContent = question.hint; // Removed hint display
+
+            question.answerOptions.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.classList.add('answer-option');
+                optionDiv.innerHTML = `<input type="radio" name="answer" id="option-${index}" value="${index}" class="hidden">
+                                        <label for="option-${index}" class="cursor-pointer w-full">${option.text}</label>`;
+                
+                // Add click listener to the label
+                optionDiv.querySelector('label').addEventListener('click', () => {
+                    selectAnswer(index);
+                });
+
+                // Set selected state if already answered
+                if (userAnswers[currentQuestionIndex] !== null && userAnswers[currentQuestionIndex].selectedIndex === index) {
+                    optionDiv.classList.add('selected');
+                }
+
+                answerOptionsElement.appendChild(optionDiv);
+            });
+
+            updateNavigationButtons();
+            applyFeedback();
+
+            // After rendering, typeset the math again
+            if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                MathJax.typesetPromise([questionTextElement, answerOptionsElement]).catch((err) => console.error("MathJax typesetting failed:", err));
+            }
+        }
+
+        // Function to handle answer selection
+        function selectAnswer(selectedIndex) {
+            // Clear previous selection styles
+            document.querySelectorAll('.answer-option').forEach(optionDiv => {
+                optionDiv.classList.remove('selected', 'correct', 'incorrect');
+                optionDiv.querySelector('input').checked = false; // Uncheck radio button
+            });
+
+            // Apply selected style to the chosen option
+            const selectedOptionDiv = answerOptionsElement.children[selectedIndex];
+            selectedOptionDiv.classList.add('selected');
+            selectedOptionDiv.querySelector('input').checked = true; // Check radio button
+
+            // Store user's answer
+            userAnswers[currentQuestionIndex] = {
+                selectedIndex: selectedIndex,
+                isCorrect: quizQuestions[currentQuestionIndex].answerOptions[selectedIndex].isCorrect
+            };
+
+            // Apply feedback immediately after selection
+            applyFeedback();
+            // Call updateNavigationButtons after an answer is selected
+            updateNavigationButtons();
+        }
+
+        // Function to apply correct/incorrect feedback and show rationale
+        function applyFeedback() {
+            const currentQuestion = quizQuestions[currentQuestionIndex];
+            const selectedAnswer = userAnswers[currentQuestionIndex];
+
+            // Disable all options after an answer is selected for the current question
+            document.querySelectorAll('.answer-option').forEach(optionDiv => {
+                optionDiv.style.pointerEvents = 'none'; // Disable clicking
+            });
+
+            currentQuestion.answerOptions.forEach((option, index) => {
+                const optionDiv = answerOptionsElement.children[index];
+                const rationaleElementId = `rationale-${currentQuestionIndex}-${index}`;
+
+                // Remove existing rationale if any
+                const existingRationale = optionDiv.querySelector('.rationale');
+                if (existingRationale) {
+                    existingRationale.remove();
+                }
+
+                if (selectedAnswer !== null) {
+                    if (option.isCorrect) {
+                        optionDiv.classList.add('correct');
+                    } else if (selectedAnswer.selectedIndex === index && !option.isCorrect) {
+                        optionDiv.classList.add('incorrect');
+                    }
+
+                    // Add rationale for all options if an answer is selected
+                    const rationaleDiv = document.createElement('div');
+                    rationaleDiv.classList.add('rationale');
+                    rationaleDiv.id = rationaleElementId;
+                    rationaleDiv.textContent = option.rationale;
+                    optionDiv.appendChild(rationaleDiv);
+                } else {
+                    // Re-enable options if no answer is selected (e.g., when navigating back)
+                    optionDiv.style.pointerEvents = 'auto';
+                }
+            });
+            // After applying feedback, typeset the math again for rationales
+            if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                MathJax.typesetPromise([answerOptionsElement]).catch((err) => console.error("MathJax typesetting failed:", err));
+            }
+        }
+
+
+        // Function to update navigation button states
+        function updateNavigationButtons() {
+            prevBtn.disabled = currentQuestionIndex === 0;
+            // Next button is enabled if an answer is selected OR if it's the last question
+            nextBtn.disabled = userAnswers[currentQuestionIndex] === null && currentQuestionIndex < quizQuestions.length - 1;
+
+            if (currentQuestionIndex === quizQuestions.length - 1) {
+                nextBtn.textContent = 'Hoàn thành';
+            } else {
+                nextBtn.textContent = 'Câu tiếp theo';
+            }
+        }
+
+        // Event listeners for navigation buttons
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                // End of quiz
+                calculateScore();
+                showResultScreen();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        });
+
+        // Function to calculate score
+        function calculateScore() {
+            score = 0;
+            userAnswers.forEach(answer => {
+                if (answer && answer.isCorrect) {
+                    score++;
+                }
+            });
+        }
+
+        // Function to show result screen
+        function showResultScreen() {
+            quizContentElement.classList.add('hidden');
+            resultScreenElement.classList.remove('hidden');
+            finalScoreElement.textContent = `${score}/${quizQuestions.length}`;
+
+            let message = '';
+            if (score === quizQuestions.length) {
+                message = 'Xuất sắc! Bạn đã trả lời đúng tất cả các câu hỏi.';
+            } else if (score >= quizQuestions.length / 2) {
+                message = 'Rất tốt! Bạn đã nắm vững phần lớn kiến thức.';
+            } else {
+                message = 'Hãy cố gắng hơn nhé! Bạn có thể xem lại lý thuyết và thử lại.';
+            }
+            resultMessageElement.textContent = message;
+        }
+
+        // Event listener for restart button
+        restartBtn.addEventListener('click', () => {
+            currentQuestionIndex = 0;
+            userAnswers = new Array(quizQuestions.length).fill(null);
+            score = 0;
+            resultScreenElement.classList.add('hidden');
+            quizContentElement.classList.remove('hidden');
+            renderQuestion();
+        });
+
+        // Initial render - wait for MathJax to be ready
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof MathJax !== 'undefined' && MathJax.startup && MathJax.startup.promise) {
+                MathJax.startup.promise.then(() => {
+                    renderQuestion();
+                }).catch((err) => console.error("MathJax startup promise failed:", err));
+            } else {
+                // Fallback if MathJax is not detected or not ready
+                console.warn("MathJax not fully loaded or configured, rendering without typesetting.");
+                renderQuestion();
+            }
+        });
+    </script>
+</body>
+</html>
