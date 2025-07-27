@@ -21,71 +21,94 @@
     </div>
 
     <script>
+// --- PHẦN CÀI ĐẶT ---
+// Thay thế các giá trị dưới đây bằng thông tin của bạn
+
+const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfNn5BF8oejY9kTGkoTLIO0BzhF99R9fURFA6avaASmXPw32w/formResponse';
+const NAME_ENTRY_ID = '1858710141';
+const SCORE_ENTRY_ID = '1307362548';
+
+// Vì form của bạn không có các trường này, chúng ta có thể bỏ qua hoặc để trống
+const CLASS_ENTRY_ID = ''; 
+const QUIZ_NAME_ENTRY_ID = '';
+
+// --- KẾT THÚC PHẦN CÀI ĐẶT ---
+
+
     // Nơi chứa TẤT CẢ đáp án và giải thích cho MỌI bài thi
     const allQuizzesData = {
-        'mau': { // 'mau' phải khớp với data-quiz-id ở tệp bài làm
-            questions: {
-                q1: { text: '<strong>Câu 1:</strong> Thủ đô của Việt Nam là gì?', answer: 'c', explanation: 'Hà Nội là thủ đô của nước Cộng hòa Xã hội chủ nghĩa Việt Nam từ năm 1976.' },
-                q2: { text: '<strong>Câu 2:</strong> 5 x 8 bằng bao nhiêu?', answer: 'b', explanation: 'Phép nhân cơ bản: 5 nhân 8 bằng 40.' }
-            },
-            options: {
-                q1: { a: 'A. TP. Hồ Chí Minh', b: 'B. Đà Nẵng', c: 'C. Hà Nội' },
-                q2: { a: 'A. 35', b: 'B. 40', c: 'C. 45' }
-            }
+        'mau': {
+            title: 'Bài kiểm tra Mẫu',
+            questions: { /* ... giữ nguyên như cũ ... */ },
+            options: { /* ... giữ nguyên như cũ ... */ }
         },
-        'toan': { // Ví dụ cho bài thi toán
+        'toan': {
+            title: 'Bài kiểm tra Môn Toán',
             // ... định nghĩa câu hỏi và đáp án cho bài toán ở đây
         }
     };
 
     // Lấy dữ liệu từ localStorage
-    const userAnswers = JSON.parse(localStorage.getItem('quizResults'));
-    const quizId = localStorage.getItem('quizId');
+    const savedData = JSON.parse(localStorage.getItem('submissionData'));
+    const quizId = savedData.quizId;
+    const userAnswers = savedData.answers;
+    const studentName = savedData.name;
+    const studentClass = savedData.class;
+    
     const quizData = allQuizzesData[quizId];
+    let score = 0;
+    const totalQuestions = Object.keys(quizData.questions).length;
 
-    if (userAnswers && quizData) {
-        let score = 0;
-        let reviewHTML = '';
-        
-        for (const questionId in quizData.questions) {
-            const questionInfo = quizData.questions[questionId];
-            const userAnswerValue = userAnswers[questionId];
-            
-            reviewHTML += `<div class="review-item">`;
-            reviewHTML += `<p>${questionInfo.text}</p>`;
+    // Hàm gửi dữ liệu đến Google Forms
+    async function submitToGoogleForms(data) {
+        const formData = new FormData();
+        formData.append(NAME_ENTRY_ID, data.name);
+        formData.append(CLASS_ENTRY_ID, data.class);
+        formData.append(QUIZ_NAME_ENTRY_ID, data.quizName);
+        formData.append(SCORE_ENTRY_ID, data.score);
 
-            if (userAnswerValue) {
-                const userAnswerText = quizData.options[questionId][userAnswerValue];
-                reviewHTML += `<p><strong>Bạn chọn:</strong> ${userAnswerText}</p>`;
+        try {
+            await fetch(GOOGLE_FORM_ACTION_URL, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors' // Quan trọng!
+            });
+        } catch (error) {
+            console.error('Lỗi khi gửi đến Google Forms:', error);
+        }
+    }
 
-                if (userAnswerValue === questionInfo.answer) {
-                    score++;
-                    reviewHTML += `<p class="review-correct">✅ Chính xác</p>`;
-                } else {
-                    reviewHTML += `<p class="review-incorrect">❌ Sai rồi</p>`;
-                    // --- PHẦN MỚI ĐƯỢC THÊM VÀO ---
-                    const correctAnswerKey = questionInfo.answer;
-                    const correctAnswerText = quizData.options[questionId][correctAnswerKey];
-                    reviewHTML += `<p class="review-correct-answer"><strong>Đáp án đúng:</strong> ${correctAnswerText}</p>`;
-                    // --- KẾT THÚC PHẦN MỚI ---
-                }
-            } else {
-                reviewHTML += `<p><strong>Bạn chưa trả lời.</strong></p>`;
-            }
-            
-            reviewHTML += `<div class="explanation"><strong>Giải thích:</strong> ${questionInfo.explanation}</div>`;
-            reviewHTML += `</div>`;
+    // Hàm chính để xử lý và hiển thị
+    function processResults() {
+        if (!savedData || !quizData) {
+            document.getElementById('result').innerHTML = '<h3>Không tìm thấy dữ liệu bài làm.</h3>';
+            return;
         }
 
-        const totalQuestions = Object.keys(quizData.questions).length;
-        document.getElementById('result').innerHTML = `<h3>Kết quả: Bạn đã trả lời đúng ${score}/${totalQuestions} câu!</h3>`;
-        document.getElementById('review-content').innerHTML = reviewHTML;
+        // Chấm điểm và tạo phần xem lại (giữ nguyên logic cũ)
+        let reviewHTML = '';
+        for (const questionId in quizData.questions) {
+            // ... (Phần code này giữ nguyên như phiên bản trước) ...
+        }
         
-        localStorage.removeItem('quizResults');
-        localStorage.removeItem('quizId');
-    } else {
-        document.getElementById('result').innerHTML = '<h3>Không tìm thấy dữ liệu bài làm. Vui lòng thử lại.</h3>';
+        // Hiển thị kết quả
+        const scoreText = `${score}/${totalQuestions}`;
+        document.getElementById('result').innerHTML = `<h3>Kết quả: Bạn đã trả lời đúng ${scoreText} câu!</h3>`;
+        document.getElementById('review-content').innerHTML = reviewHTML;
+
+        // Gửi dữ liệu đi
+        submitToGoogleForms({
+            name: studentName,
+            class: studentClass,
+            quizName: quizData.title,
+            score: scoreText
+        });
+
+        // Xóa dữ liệu tạm
+        localStorage.removeItem('submissionData');
     }
+
+    processResults();
 </script>
 </body>
 </html>
