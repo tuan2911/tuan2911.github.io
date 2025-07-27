@@ -3,14 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài kiểm tra Mẫu</title>
-
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <title>Kiểm tra Chương 1: Mệnh đề</title>
     <link rel="stylesheet" href="style.css">
-</head>
+
+    <script>
+    // Cấu hình để MathJax nhận diện công thức trong dấu $...$
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
 <body>
     <div class="container">
-        <h1>📝 Bài ôn tập mệnh đề</h1>
+        <h1>Kiểm tra Chương 1: Mệnh đề (Toán 10)</h1>
 
         <form id="quiz-form" data-quiz-id="menhde">
             <div class="student-info">
@@ -18,75 +26,16 @@
                 <input type="text" id="student-name" required>
             </div>
 
-            <div class="question" data-question-id="q1">
-                <p><strong>Câu 1:</strong> Khẳng định nào sau đây là một mệnh đề?</p>
-                <label><input type="radio" name="q1" value="a"> A. Hôm nay trời đẹp quá!</label><br>
-                <label><input type="radio" name="q1" value="b"> B. $x + 5 = 10$</label><br>
-                <label><input type="radio" name="q1" value="c"> C. Số 9 là số chính phương.</label><br>
-            </div>
-        
-            <div class="question" data-question-id="q2">
-                <p><strong>Câu 2:</strong> Mệnh đề "Nếu một số chia hết cho 4 thì nó chia hết cho 2" là mệnh đề đúng hay sai?</p>
-                <label><input type="radio" name="q2" value="a"> A. Đúng</label><br>
-                <label><input type="radio" name="q2" value="b"> B. Sai</label><br>
-                <label><input type="radio" name="q2" value="c"> C. Không xác định được</label><br>
-            </div>
-        
-            <div class="question" data-question-id="q3">
-                <p><strong>Câu 3:</strong> Cho mệnh đề $P$: "Mọi số nguyên đều là số hữu tỉ". Mệnh đề phủ định $\\overline{P}$ là gì?</p>
-                <label><input type="radio" name="q3" value="a"> A. Mọi số nguyên đều không phải là số hữu tỉ.</label><br>
-                <label><input type="radio" name="q3" value="b"> B. Tồn tại một số nguyên không phải là số hữu tỉ.</label><br>
-                <label><input type="radio" name="q3" value="c"> C. Mọi số hữu tỉ đều là số nguyên.</label><br>
-            </div>
-        
-            <div class="question" data-question-id="q4">
-                <p><strong>Câu 4:</strong> Mệnh đề $P \\Rightarrow Q$ chỉ sai khi nào?</p>
-                <label><input type="radio" name="q4" value="a"> A. $P$ đúng, $Q$ đúng</label><br>
-                <label><input type="radio" name="q4" value="b"> B. $P$ đúng, $Q$ sai</label><br>
-                <label><input type="radio" name="q4" value="c"> C. $P$ sai, $Q$ đúng</label><br>
-            </div>
-        
-            <div class="question" data-question-id="q5">
-                <p><strong>Câu 5:</strong> Mệnh đề "Tam giác ABC là tam giác đều" là điều kiện đủ để "Tam giác ABC có ba góc bằng $60^\\circ$". Mệnh đề nào sau đây thể hiện điều đó?</p>
-                <label><input type="radio" name="q5" value="a"> A. Tam giác ABC có ba góc bằng $60^\\circ$ $\\Rightarrow$ Tam giác ABC là tam giác đều.</label><br>
-                <label><input type="radio" name="q5" value="b"> B. Tam giác ABC là tam giác đều $\\Rightarrow$ Tam giác ABC có ba góc bằng $60^\\circ$.</label><br>
-                <label><input type="radio" name="q5" value="c"> C. Tam giác ABC là tam giác đều $\\Leftrightarrow$ Tam giác ABC có ba góc bằng $60^\\circ$.</label><br>
-            </div>
-        
-            <div class="question" data-question-id="q6">
-                <p><strong>Câu 6:</strong> Mệnh đề "$\\exists x \\in \\mathbb{R}, x^2 < 0$" là mệnh đề đúng hay sai?</p>
-                <label><input type="radio" name="q6" value="a"> A. Đúng</label><br>
-                <label><input type="radio" name="q6" value="b"> B. Sai</label><br>
-                <label><input type="radio" name="q6" value="c"> C. Không xác định được</label><br>
-            </div>
-        
-            <div class="question" data-question-id="q7">
-                <p><strong>Câu 7:</strong> Mệnh đề "$\\forall n \\in \\mathbb{N}, n+1 > n$" là mệnh đề đúng hay sai?</p>
-                <label><input type="radio" name="q7" value="a"> A. Đúng</label><br>
-                <label><input type="radio" name="q7" value="b"> B. Sai</label><br>
-                <label><input type="radio" name="q7" value="c"> C. Tùy thuộc vào giá trị của n</label><br>
-            </div>
-        
-            <div class="question" data-question-id="q8">
-                <p><strong>Câu 8:</strong> Cho mệnh đề $P$: "Hà Nội là thủ đô của Việt Nam" và $Q$: "Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam". Mệnh đề $P \\land Q$ là gì?</p>
-                <label><input type="radio" name="q8" value="a"> A. Hà Nội là thủ đô của Việt Nam hoặc Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam.</label><br>
-                <label><input type="radio" name="q8" value="b"> B. Nếu Hà Nội là thủ đô của Việt Nam thì Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam.</label><br>
-                <label><input type="radio" name="q8" value="c"> C. Hà Nội là thủ đô của Việt Nam và Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam.</label><br>
-            </div>
-        
-            <div class="question" data-question-id="q9">
-                <p><strong>Câu 9:</strong> Mệnh đề "Một số là số chẵn khi và chỉ khi nó chia hết cho 2" là loại mệnh đề gì?</p>
-                <label><input type="radio" name="q9" value="a"> A. Mệnh đề kéo theo</label><br>
-                <label><input type="radio" name="q9" value="b"> B. Mệnh đề đảo</label><br>
-                <label><input type="radio" name="q9" value="c"> C. Mệnh đề tương đương</label><br>
-            </div>
-        
-            <div class="question" data-question-id="q10">
-                <p><strong>Câu 10:</strong> Phủ định của mệnh đề "$\\exists x \\in \\mathbb{Z}, x^2 = 5$" là gì?</p>
-                <label><input type="radio" name="q10" value="a"> A. $\\forall x \\in \\mathbb{Z}, x^2 \\ne 5$</label><br>
-                <label><input type="radio" name="q10" value="b"> B. $\\exists x \\in \\mathbb{Z}, x^2 \\ne 5$</label><br>
-                <label><input type="radio" name="q10" value="c"> C. $\\forall x \\notin \\mathbb{Z}, x^2 = 5$</label><br>
-            </div>
+            <div class="question" data-question-id="q1"><p><strong>Câu 1:</strong> Khẳng định nào sau đây là một mệnh đề?</p><label><input type="radio" name="q1" value="a"> A. Hôm nay trời đẹp quá!</label><br><label><input type="radio" name="q1" value="b"> B. $x + 5 = 10$</label><br><label><input type="radio" name="q1" value="c"> C. Số 9 là số chính phương.</label><br></div>
+            <div class="question" data-question-id="q2"><p><strong>Câu 2:</strong> Mệnh đề "Nếu một số chia hết cho 4 thì nó chia hết cho 2" là mệnh đề đúng hay sai?</p><label><input type="radio" name="q2" value="a"> A. Đúng</label><br><label><input type="radio" name="q2" value="b"> B. Sai</label><br><label><input type="radio" name="q2" value="c"> C. Không xác định được</label><br></div>
+            <div class="question" data-question-id="q3"><p><strong>Câu 3:</strong> Cho mệnh đề $P$: "Mọi số nguyên đều là số hữu tỉ". Mệnh đề phủ định $\overline{P}$ là gì?</p><label><input type="radio" name="q3" value="a"> A. Mọi số nguyên đều không phải là số hữu tỉ.</label><br><label><input type="radio" name="q3" value="b"> B. Tồn tại một số nguyên không phải là số hữu tỉ.</label><br><label><input type="radio" name="q3" value="c"> C. Mọi số hữu tỉ đều là số nguyên.</label><br></div>
+            <div class="question" data-question-id="q4"><p><strong>Câu 4:</strong> Mệnh đề $P \Rightarrow Q$ chỉ sai khi nào?</p><label><input type="radio" name="q4" value="a"> A. $P$ đúng, $Q$ đúng</label><br><label><input type="radio" name="q4" value="b"> B. $P$ đúng, $Q$ sai</label><br><label><input type="radio" name="q4" value="c"> C. $P$ sai, $Q$ đúng</label><br></div>
+            <div class="question" data-question-id="q5"><p><strong>Câu 5:</strong> Mệnh đề "Tam giác ABC là tam giác đều" là điều kiện đủ để "Tam giác ABC có ba góc bằng $60^\circ$". Mệnh đề nào sau đây thể hiện điều đó?</p><label><input type="radio" name="q5" value="a"> A. Tam giác ABC có ba góc bằng $60^\circ$ $\Rightarrow$ Tam giác ABC là tam giác đều.</label><br><label><input type="radio" name="q5" value="b"> B. Tam giác ABC là tam giác đều $\Rightarrow$ Tam giác ABC có ba góc bằng $60^\circ$.</label><br><label><input type="radio" name="q5" value="c"> C. Tam giác ABC là tam giác đều $\Leftrightarrow$ Tam giác ABC có ba góc bằng $60^\circ$.</label><br></div>
+            <div class="question" data-question-id="q6"><p><strong>Câu 6:</strong> Mệnh đề "$\exists x \in \mathbb{R}, x^2 < 0$" là mệnh đề đúng hay sai?</p><label><input type="radio" name="q6" value="a"> A. Đúng</label><br><label><input type="radio" name="q6" value="b"> B. Sai</label><br><label><input type="radio" name="q6" value="c"> C. Không xác định được</label><br></div>
+            <div class="question" data-question-id="q7"><p><strong>Câu 7:</strong> Mệnh đề "$\forall n \in \mathbb{N}, n+1 > n$" là mệnh đề đúng hay sai?</p><label><input type="radio" name="q7" value="a"> A. Đúng</label><br><label><input type="radio" name="q7" value="b"> B. Sai</label><br><label><input type="radio" name="q7" value="c"> C. Tùy thuộc vào giá trị của n</label><br></div>
+            <div class="question" data-question-id="q8"><p><strong>Câu 8:</strong> Cho mệnh đề $P$: "Hà Nội là thủ đô của Việt Nam" và $Q$: "Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam". Mệnh đề $P \land Q$ là gì?</p><label><input type="radio" name="q8" value="a"> A. Hà Nội là thủ đô của Việt Nam hoặc Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam.</label><br><label><input type="radio" name="q8" value="b"> B. Nếu Hà Nội là thủ đô của Việt Nam thì Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam.</label><br><label><input type="radio" name="q8" value="c"> C. Hà Nội là thủ đô của Việt Nam và Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam.</label><br></div>
+            <div class="question" data-question-id="q9"><p><strong>Câu 9:</strong> Mệnh đề "Một số là số chẵn khi và chỉ khi nó chia hết cho 2" là loại mệnh đề gì?</p><label><input type="radio" name="q9" value="a"> A. Mệnh đề kéo theo</label><br><label><input type="radio" name="q9" value="b"> B. Mệnh đề đảo</label><br><label><input type="radio" name="q9" value="c"> C. Mệnh đề tương đương</label><br></div>
+            <div class="question" data-question-id="q10"><p><strong>Câu 10:</strong> Phủ định của mệnh đề "$\exists x \in \mathbb{Z}, x^2 = 5$" là gì?</p><label><input type="radio" name="q10" value="a"> A. $\forall x \in \mathbb{Z}, x^2 \ne 5$</label><br><label><input type="radio" name="q10" value="b"> B. $\exists x \in \mathbb{Z}, x^2 \ne 5$</label><br><label><input type="radio" name="q10" value="c"> C. $\forall x \notin \mathbb{Z}, x^2 = 5$</label><br></div>
         </form>
 
         <button id="submit-btn">Nộp bài</button>
@@ -96,29 +45,21 @@
     <script>
         const submitBtn = document.getElementById('submit-btn');
         const quizForm = document.getElementById('quiz-form');
-    
         submitBtn.addEventListener('click', () => {
             const studentName = document.getElementById('student-name').value;
-    
             if (!studentName) {
                 alert('Vui lòng nhập đầy đủ Họ và tên!');
                 return;
             }
-    
             const userAnswers = new FormData(quizForm);
             const answersObject = Object.fromEntries(userAnswers.entries());
             const quizId = quizForm.getAttribute('data-quiz-id');
-    
             const submissionData = {
                 quizId: quizId,
                 name: studentName,
                 answers: answersObject
             };
-            
-            // Bước quan trọng: Lưu dữ liệu vào bộ nhớ của trình duyệt
             localStorage.setItem('submissionData', JSON.stringify(submissionData));
-            
-            // Chuyển đến trang kết quả
             window.location.href = 'ket-qua.html';
         });
     </script>
