@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài kiểm tra Mẫu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="quiz-title">📝 Bài kiểm tra Mẫu</h1>
+
+        <form id="quiz-form">
+            <div class="question">
+                <p><strong>Câu 1:</strong> Đây là câu hỏi mẫu số 1?</p>
+                <label><input type="radio" name="q1" value="a"> A. Lựa chọn 1</label><br>
+                <label><input type="radio" name="q1" value="b"> B. Lựa chọn 2</label><br>
+                <label><input type="radio" name="q1" value="c"> C. Lựa chọn 3</label><br>
+            </div>
+
+            <div class="question">
+                <p><strong>Câu 2:</strong> Đây là câu hỏi mẫu số 2?</p>
+                <label><input type="radio" name="q2" value="a"> A. Lựa chọn A</label><br>
+                <label><input type="radio" name="q2" value="b"> B. Lựa chọn B</label><br>
+                <label><input type="radio" name="q2" value="c"> C. Lựa chọn C</label><br>
+            </div>
+
+            </form>
+
+        <button id="submit-btn">Nộp bài</button>
+        <div id="result"></div>
+        <a href="index.html" class="back-link">Quay lại trang chính</a>
+    </div>
+
+    <script>
+        // THAY ĐỔI: Khai báo đáp án đúng cho từng câu hỏi
+        const correctAnswers = {
+            q1: 'b', // Đáp án đúng cho câu 1 là 'B'
+            q2: 'c'  // Đáp án đúng cho câu 2 là 'C'
+            // Thêm đáp án cho các câu hỏi tiếp theo ở đây, ví dụ: q3: 'a'
+        };
+
+        const submitBtn = document.getElementById('submit-btn');
+        const quizForm = document.getElementById('quiz-form');
+        const resultEl = document.getElementById('result');
+
+        submitBtn.addEventListener('click', () => {
+            let score = 0;
+            const userAnswers = new FormData(quizForm);
+            
+            for (let [question, userAnswer] of userAnswers.entries()) {
+                if (userAnswer === correctAnswers[question]) {
+                    score++;
+                }
+            }
+
+            const totalQuestions = Object.keys(correctAnswers).length;
+            resultEl.innerHTML = `<h3>Kết quả: Bạn đã trả lời đúng ${score}/${totalQuestions} câu!</h3>`;
+            
+            submitBtn.disabled = true;
+            submitBtn.style.backgroundColor = 'grey';
+        });
+    </script>
+</body>
+</html>
