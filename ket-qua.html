@@ -21,12 +21,12 @@
     </div>
 
     <script>
-        // --- PHẦN CÀI ĐẶT (Đã điền sẵn thông tin của bạn) ---
+        // --- PHẦN CÀI ĐẶT (Sử dụng thông tin chính xác của bạn) ---
         const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfNn5BF8oejY9kTGkoTLIO0BzhF99R9fURFA6avaASmXPw32w/formResponse';
         const NAME_ENTRY_ID = 'entry.1858710141';
         const SCORE_ENTRY_ID = 'entry.1307362548';
         // --- KẾT THÚC PHẦN CÀI ĐẶT ---
-
+    
         // Nơi chứa TẤT CẢ đáp án và giải thích cho MỌI bài thi
         const allQuizzesData = {
             'mau': {
@@ -40,34 +40,37 @@
                 }
             }
         };
-
-        // Lấy dữ liệu từ localStorage
-        const savedData = JSON.parse(localStorage.getItem('submissionData'));
-
-        // Hàm gửi dữ liệu đến Google Forms (đã tinh gọn)
+    
+        // --- HÀM GỬI DỮ LIỆU ĐÃ ĐƯỢC CẬP NHẬT ---
         async function submitToGoogleForms(name, score) {
-            const formData = new FormData();
+            // Sử dụng URLSearchParams để mã hóa dữ liệu một cách đáng tin cậy
+            const formData = new URLSearchParams();
             formData.append(NAME_ENTRY_ID, name);
             formData.append(SCORE_ENTRY_ID, score);
-
+    
             try {
                 await fetch(GOOGLE_FORM_ACTION_URL, {
                     method: 'POST',
-                    body: formData,
-                    mode: 'no-cors'
+                    mode: 'no-cors', // Bắt buộc để tránh lỗi CORS
+                    headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formData.toString() // Gửi dữ liệu dưới dạng chuỗi đã mã hóa
                 });
             } catch (error) {
                 console.error('Lỗi khi gửi đến Google Forms:', error);
             }
         }
-
-        // Hàm chính để xử lý và hiển thị
+    
+        // Hàm chính để xử lý và hiển thị (không thay đổi)
         function processResults() {
+            const savedData = JSON.parse(localStorage.getItem('submissionData'));
+    
             if (!savedData) {
                 document.getElementById('result').innerHTML = '<h3>Không tìm thấy dữ liệu bài làm.</h3>';
                 return;
             }
-
+    
             const { quizId, name, answers: userAnswers } = savedData;
             const quizData = allQuizzesData[quizId];
             
@@ -75,17 +78,17 @@
                  document.getElementById('result').innerHTML = '<h3>Lỗi: Không tìm thấy dữ liệu cho bài kiểm tra này.</h3>';
                  return;
             }
-
+    
             let score = 0;
             const totalQuestions = Object.keys(quizData.questions).length;
             let reviewHTML = '';
-
+    
             for (const questionId in quizData.questions) {
                 const questionInfo = quizData.questions[questionId];
                 const userAnswerValue = userAnswers[questionId];
                 
                 reviewHTML += `<div class="review-item"><p>${questionInfo.text}</p>`;
-
+    
                 if (userAnswerValue) {
                     const userAnswerText = quizData.options[questionId][userAnswerValue];
                     reviewHTML += `<p><strong>Bạn chọn:</strong> ${userAnswerText}</p>`;
@@ -103,18 +106,17 @@
                 }
                 reviewHTML += `<div class="explanation"><strong>Giải thích:</strong> ${questionInfo.explanation}</div></div>`;
             }
-
+    
             const scoreText = `${score}/${totalQuestions}`;
             document.getElementById('result').innerHTML = `<h3>Kết quả của ${name}: ${scoreText} câu đúng!</h3>`;
             document.getElementById('review-content').innerHTML = reviewHTML;
             
             // Gửi dữ liệu đi
             submitToGoogleForms(name, scoreText);
-
-            // Xóa dữ liệu tạm
+    
             localStorage.removeItem('submissionData');
         }
-
+    
         processResults();
     </script>
 </body>
