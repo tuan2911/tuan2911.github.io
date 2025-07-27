@@ -15,17 +15,14 @@
                 <label for="student-name">Họ và tên:</label>
                 <input type="text" id="student-name" required>
             </div>
-            <div class="student-info">
-                <label for="student-class">Lớp:</label>
-                <input type="text" id="student-class" required>
-            </div>
-            
+
             <div class="question" data-question-id="q1">
                 <p><strong>Câu 1:</strong> Thủ đô của Việt Nam là gì?</p>
                 <label><input type="radio" name="q1" value="a"> A. TP. Hồ Chí Minh</label><br>
                 <label><input type="radio" name="q1" value="b"> B. Đà Nẵng</label><br>
                 <label><input type="radio" name="q1" value="c"> C. Hà Nội</label><br>
             </div>
+
             <div class="question" data-question-id="q2">
                 <p><strong>Câu 2:</strong> 5 x 8 bằng bao nhiêu?</p>
                 <label><input type="radio" name="q2" value="a"> A. 35</label><br>
@@ -43,15 +40,25 @@
         const quizForm = document.getElementById('quiz-form');
 
         submitBtn.addEventListener('click', () => {
+            const studentName = document.getElementById('student-name').value;
+
+            if (!studentName) {
+                alert('Vui lòng nhập đầy đủ Họ và tên!');
+                return;
+            }
+
             const userAnswers = new FormData(quizForm);
             const answersObject = Object.fromEntries(userAnswers.entries());
             const quizId = quizForm.getAttribute('data-quiz-id');
 
-            // Lưu câu trả lời và mã bài thi vào localStorage
-            localStorage.setItem('quizResults', JSON.stringify(answersObject));
-            localStorage.setItem('quizId', quizId);
-
-            // Chuyển hướng đến trang kết quả
+            // Dữ liệu lưu trữ giờ đã gọn hơn
+            const submissionData = {
+                quizId: quizId,
+                name: studentName,
+                answers: answersObject
+            };
+            
+            localStorage.setItem('submissionData', JSON.stringify(submissionData));
             window.location.href = 'ket-qua.html';
         });
     </script>
