@@ -10,14 +10,13 @@
     <div class="container">
         <h1>📝 Bài kiểm tra Mẫu</h1>
 
-        <form id="quiz-form">
+        <form id="quiz-form" data-quiz-id="mau">
             <div class="question" data-question-id="q1">
                 <p><strong>Câu 1:</strong> Thủ đô của Việt Nam là gì?</p>
                 <label><input type="radio" name="q1" value="a"> A. TP. Hồ Chí Minh</label><br>
                 <label><input type="radio" name="q1" value="b"> B. Đà Nẵng</label><br>
                 <label><input type="radio" name="q1" value="c"> C. Hà Nội</label><br>
             </div>
-
             <div class="question" data-question-id="q2">
                 <p><strong>Câu 2:</strong> 5 x 8 bằng bao nhiêu?</p>
                 <label><input type="radio" name="q2" value="a"> A. 35</label><br>
@@ -27,81 +26,24 @@
         </form>
 
         <button id="submit-btn">Nộp bài</button>
-        <div id="result"></div>
-
-        <div id="review-section" class="hidden">
-            <h2>Xem lại bài làm</h2>
-            <div id="review-content"></div>
-        </div>
-        
         <a href="index.html" class="back-link">Quay lại trang chính</a>
     </div>
 
     <script>
-        // CẬP NHẬT: Khai báo đáp án và giải thích
-        const correctAnswers = {
-            q1: {
-                answer: 'c',
-                explanation: 'Hà Nội là thủ đô của nước Cộng hòa Xã hội chủ nghĩa Việt Nam từ năm 1976.'
-            },
-            q2: {
-                answer: 'b',
-                explanation: 'Phép nhân cơ bản: 5 nhân 8 bằng 40.'
-            }
-        };
-
         const submitBtn = document.getElementById('submit-btn');
         const quizForm = document.getElementById('quiz-form');
-        const resultEl = document.getElementById('result');
-        const reviewSection = document.getElementById('review-section');
-        const reviewContent = document.getElementById('review-content');
 
         submitBtn.addEventListener('click', () => {
-            let score = 0;
             const userAnswers = new FormData(quizForm);
-            let reviewHTML = '';
+            const answersObject = Object.fromEntries(userAnswers.entries());
+            const quizId = quizForm.getAttribute('data-quiz-id');
 
-            // Vô hiệu hóa các lựa chọn sau khi nộp
-            quizForm.querySelectorAll('input[type="radio"]').forEach(input => {
-                input.disabled = true;
-            });
-            
-            // Lặp qua từng câu hỏi để chấm điểm và tạo phần xem lại
-            for (const questionId in correctAnswers) {
-                const questionData = correctAnswers[questionId];
-                const userAnswer = userAnswers.get(questionId);
-                const questionEl = document.querySelector(`.question[data-question-id="${questionId}"]`);
-                const questionText = questionEl.querySelector('p').innerHTML;
-                
-                reviewHTML += `<div class="review-item">`;
-                reviewHTML += `${questionText}`;
+            // Lưu câu trả lời và mã bài thi vào localStorage
+            localStorage.setItem('quizResults', JSON.stringify(answersObject));
+            localStorage.setItem('quizId', quizId);
 
-                if (userAnswer) {
-                    const selectedLabel = questionEl.querySelector(`input[value="${userAnswer}"]`).parentElement;
-                    reviewHTML += `<p><strong>Bạn chọn:</strong> ${selectedLabel.textContent}</p>`;
-
-                    if (userAnswer === questionData.answer) {
-                        score++;
-                        reviewHTML += `<p class="review-correct">✅ Chính xác</p>`;
-                    } else {
-                        reviewHTML += `<p class="review-incorrect">❌ Sai rồi</p>`;
-                    }
-                } else {
-                    reviewHTML += `<p><strong>Bạn chưa trả lời.</strong></p>`;
-                }
-
-                reviewHTML += `<div class="explanation"><strong>Giải thích:</strong> ${questionData.explanation}</div>`;
-                reviewHTML += `</div>`;
-            }
-
-            const totalQuestions = Object.keys(correctAnswers).length;
-            resultEl.innerHTML = `<h3>Kết quả: Bạn đã trả lời đúng ${score}/${totalQuestions} câu!</h3>`;
-            
-            // Hiển thị phần xem lại
-            reviewContent.innerHTML = reviewHTML;
-            reviewSection.classList.remove('hidden');
-
-            submitBtn.disabled = true;
+            // Chuyển hướng đến trang kết quả
+            window.location.href = 'ket-qua.html';
         });
     </script>
 </body>
