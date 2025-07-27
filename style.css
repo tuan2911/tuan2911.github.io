@@ -196,3 +196,33 @@ button:disabled {
 .back-link:hover {
     text-decoration: underline;
 }
+
+/* --- Style cho phần điền thông tin học sinh --- */
+
+.student-info {
+    margin-bottom: 25px; /* Tạo khoảng cách với câu hỏi đầu tiên */
+}
+
+.student-info label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #1a253c; /* Màu chữ đậm hơn */
+}
+
+.student-info input[type="text"] {
+    width: 100%; /* Chiếm toàn bộ chiều ngang */
+    padding: 12px; /* Tăng không gian bên trong ô nhập */
+    border: 1px solid #ccc;
+    border-radius: 8px; /* Bo tròn góc */
+    font-size: 1em;
+    box-sizing: border-box; /* Quan trọng để padding không làm vỡ layout */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Hiệu ứng khi người dùng nhấp vào ô nhập liệu */
+.student-info input[type="text"]:focus {
+    outline: none; /* Bỏ viền mặc định của trình duyệt */
+    border-color: #007bff; /* Đổi màu viền sang xanh dương */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Thêm hiệu ứng bóng mờ */
+}
