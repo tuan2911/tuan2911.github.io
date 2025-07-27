@@ -39,42 +39,56 @@ body {
     color: #555;
 }
 
-/* Giao diện nút bấm chọn bài thi */
+/* === Giao diện danh sách chọn bài thi (MỚI) === */
 .test-selection {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px; /* Khoảng cách giữa các bài thi */
 }
 
 .test-card {
-    display: block;
-    background-color: #007bff;
-    color: #ffffff;
-    padding: 20px 25px;
-    border-radius: 50px;
+    display: flex; /* Sắp xếp biểu tượng và chữ theo hàng ngang */
+    align-items: center; /* Căn giữa các mục theo chiều dọc */
+    background-color: transparent; /* Bỏ màu nền của nút bấm */
+    padding: 15px;
+    border-radius: 8px;
     text-decoration: none;
-    text-align: center;
-    font-size: 1.2em;
-    font-weight: 500;
-    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    color: inherit; /* Lấy màu chữ từ thẻ cha */
+    box-shadow: none; /* Bỏ hiệu ứng bóng đổ */
+    transition: background-color 0.3s ease;
 }
 
 .test-card:hover {
-    background-color: #0056b3;
-    transform: translateY(-3px);
+    background-color: #f0f4f8; /* Thêm hiệu ứng nền khi di chuột vào */
+    transform: none; /* Bỏ hiệu ứng nhấc lên */
 }
 
-.test-icon,
+/* Hiển thị lại biểu tượng và mô tả */
+.test-icon {
+    display: block; /* Hiển thị lại biểu tượng */
+    font-size: 2em;
+    margin-right: 15px;
+}
+
 .test-description {
-    display: none;
+    display: block; /* Hiển thị lại mô tả */
+    font-size: 1em;
+    color: #555;
+    margin-top: 5px;
 }
 
+.test-details {
+    flex-grow: 1;
+}
+
+/* Định dạng lại tiêu đề */
 .test-title {
-    font-size: 1em;
-    color: inherit;
+    font-size: 1.5em;
+    color: #0056b3; /* Đổi màu tiêu đề thành xanh dương */
+    text-decoration: underline; /* Thêm gạch chân */
     margin: 0;
 }
+/* === Kết thúc khối thay thế === */
 
 /* Footer */
 .site-footer {
