@@ -3,112 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kết quả bài kiểm tra</title>
+    <title>Bài kiểm tra Mẫu</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Kết quả bài làm</h1>
-        
-        <div id="result"></div>
+        <h1>📝 Bài kiểm tra Mẫu</h1>
 
-        <div id="review-section">
-            <h2>Xem lại bài làm và giải thích</h2>
-            <div id="review-content"></div>
-        </div>
+        <form id="quiz-form" data-quiz-id="mau">
+            <div class="student-info">
+                <label for="student-name">Họ và tên:</label>
+                <input type="text" id="student-name" required>
+            </div>
 
-        <a href="index.html" class="back-link">Quay về trang chủ</a>
+            <div class="question" data-question-id="q1">
+                <p><strong>Câu 1:</strong> Thủ đô của Việt Nam là gì?</p>
+                <label><input type="radio" name="q1" value="a"> A. TP. Hồ Chí Minh</label><br>
+                <label><input type="radio" name="q1" value="b"> B. Đà Nẵng</label><br>
+                <label><input type="radio" name="q1" value="c"> C. Hà Nội</label><br>
+            </div>
+
+            <div class="question" data-question-id="q2">
+                <p><strong>Câu 2:</strong> 5 x 8 bằng bao nhiêu?</p>
+                <label><input type="radio" name="q2" value="a"> A. 35</label><br>
+                <label><input type="radio" name="q2" value="b"> B. 40</label><br>
+                <label><input type="radio" name="q2" value="c"> C. 45</label><br>
+            </div>
+        </form>
+
+        <button id="submit-btn">Nộp bài</button>
+        <a href="index.html" class="back-link">Quay lại trang chính</a>
     </div>
 
     <script>
-// --- PHẦN CÀI ĐẶT ---
-// Thay thế các giá trị dưới đây bằng thông tin của bạn
-
-const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfNn5BF8oejY9kTGkoTLIO0BzhF99R9fURFA6avaASmXPw32w/formResponse';
-const NAME_ENTRY_ID = '1858710141';
-const SCORE_ENTRY_ID = '1307362548';
-
-// Vì form của bạn không có các trường này, chúng ta có thể bỏ qua hoặc để trống
-const CLASS_ENTRY_ID = ''; 
-const QUIZ_NAME_ENTRY_ID = '';
-
-// --- KẾT THÚC PHẦN CÀI ĐẶT ---
-
-
-    // Nơi chứa TẤT CẢ đáp án và giải thích cho MỌI bài thi
-    const allQuizzesData = {
-        'mau': {
-            title: 'Bài kiểm tra Mẫu',
-            questions: { /* ... giữ nguyên như cũ ... */ },
-            options: { /* ... giữ nguyên như cũ ... */ }
-        },
-        'toan': {
-            title: 'Bài kiểm tra Môn Toán',
-            // ... định nghĩa câu hỏi và đáp án cho bài toán ở đây
-        }
-    };
-
-    // Lấy dữ liệu từ localStorage
-    const savedData = JSON.parse(localStorage.getItem('submissionData'));
-    const quizId = savedData.quizId;
-    const userAnswers = savedData.answers;
-    const studentName = savedData.name;
-    const studentClass = savedData.class;
-    
-    const quizData = allQuizzesData[quizId];
-    let score = 0;
-    const totalQuestions = Object.keys(quizData.questions).length;
-
-    // Hàm gửi dữ liệu đến Google Forms
-    async function submitToGoogleForms(data) {
-        const formData = new FormData();
-        formData.append(NAME_ENTRY_ID, data.name);
-        formData.append(CLASS_ENTRY_ID, data.class);
-        formData.append(QUIZ_NAME_ENTRY_ID, data.quizName);
-        formData.append(SCORE_ENTRY_ID, data.score);
-
-        try {
-            await fetch(GOOGLE_FORM_ACTION_URL, {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors' // Quan trọng!
-            });
-        } catch (error) {
-            console.error('Lỗi khi gửi đến Google Forms:', error);
-        }
-    }
-
-    // Hàm chính để xử lý và hiển thị
-    function processResults() {
-        if (!savedData || !quizData) {
-            document.getElementById('result').innerHTML = '<h3>Không tìm thấy dữ liệu bài làm.</h3>';
-            return;
-        }
-
-        // Chấm điểm và tạo phần xem lại (giữ nguyên logic cũ)
-        let reviewHTML = '';
-        for (const questionId in quizData.questions) {
-            // ... (Phần code này giữ nguyên như phiên bản trước) ...
-        }
-        
-        // Hiển thị kết quả
-        const scoreText = `${score}/${totalQuestions}`;
-        document.getElementById('result').innerHTML = `<h3>Kết quả: Bạn đã trả lời đúng ${scoreText} câu!</h3>`;
-        document.getElementById('review-content').innerHTML = reviewHTML;
-
-        // Gửi dữ liệu đi
-        submitToGoogleForms({
-            name: studentName,
-            class: studentClass,
-            quizName: quizData.title,
-            score: scoreText
-        });
-
-        // Xóa dữ liệu tạm
-        localStorage.removeItem('submissionData');
-    }
-
-    processResults();
-</script>
-</body>
-</html>
+        const submitBtn = document.getElementById('submit-btn');
+        const quiz
