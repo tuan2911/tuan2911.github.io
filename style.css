@@ -1,7 +1,7 @@
 /* Cài đặt chung và font chữ */
 body {
     font-family: 'Be Vietnam Pro', Arial, sans-serif;
-    background-color: #f5f7fa; /* Màu nền xám nhạt hơn */
+    background-color: #f5f7fa;
     color: #333;
     margin: 0;
     padding: 20px;
@@ -12,7 +12,7 @@ body {
 }
 
 .container {
-    max-width: 800px; /* Thu hẹp container một chút */
+    max-width: 800px;
     width: 100%;
     margin: 0 auto;
     background-color: #ffffff;
@@ -39,50 +39,41 @@ body {
     color: #555;
 }
 
-/* === PHẦN THAY ĐỔI CHÍNH === */
-/* Khu vực chọn bài kiểm tra - Bỏ Grid Layout */
+/* === PHẦN THAY ĐỔI CHÍNH: GIAO DIỆN NÚT BẤM === */
 .test-selection {
-    /* không cần display: grid nữa */
+    display: flex;
+    flex-direction: column; /* Xếp các nút theo chiều dọc */
+    gap: 15px; /* Khoảng cách giữa các nút */
 }
 
-/* Thiết kế cho từng mục chọn bài kiểm tra */
 .test-card {
-    display: flex; /* Dùng flexbox để sắp xếp icon và chữ */
-    align-items: center;
-    padding: 20px;
-    margin-bottom: 15px; /* Khoảng cách giữa các mục */
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    display: block;
+    background-color: #007bff; /* Màu nền chính của nút */
+    color: #ffffff; /* Màu chữ */
+    padding: 20px 25px;
+    border-radius: 50px; /* Bo tròn các góc để tạo hình con nhộng */
     text-decoration: none;
-    color: inherit;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
 .test-card:hover {
-    background-color: #f5f7fa;
-    border-color: #007bff;
+    background-color: #0056b3; /* Màu nền khi di chuột vào */
+    transform: translateY(-3px); /* Hiệu ứng nhấc lên */
 }
 
-.test-icon {
-    font-size: 2.5em; /* Icon to hơn một chút */
-    margin-right: 20px; /* Khoảng cách giữa icon và chữ */
-}
-
-/* Bọc tiêu đề và mô tả vào một div để chúng xếp chồng lên nhau */
-.test-details {
-    flex-grow: 1;
+/* Ẩn các chi tiết không cần thiết cho giao diện nút bấm */
+.test-icon,
+.test-description {
+    display: none;
 }
 
 .test-title {
-    font-size: 1.3em;
-    color: #0056b3;
-    margin: 0 0 5px 0;
-}
-
-.test-description {
-    font-size: 0.95em;
-    color: #666;
-    line-height: 1.4;
+    font-size: 1em; /* Điều chỉnh lại kích thước chữ cho phù hợp */
+    color: inherit; /* Lấy màu chữ từ thẻ cha (.test-card) */
     margin: 0;
 }
 /* === KẾT THÚC PHẦN THAY ĐỔI === */
