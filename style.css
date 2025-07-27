@@ -1,8 +1,146 @@
-/* --- Style cho phần xem lại --- */
+/* Cài đặt chung và font chữ */
+body {
+    font-family: 'Be Vietnam Pro', Arial, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
 
-/* Ẩn phần xem lại ban đầu */
-.hidden {
+.container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+/* Header */
+.site-header {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 20px;
+}
+
+.site-header h1 {
+    font-size: 2.2em;
+    color: #1a253c;
+}
+
+.site-header p {
+    font-size: 1.1em;
+    color: #555;
+}
+
+/* Giao diện nút bấm chọn bài thi */
+.test-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.test-card {
+    display: block;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 20px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.test-card:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+}
+
+.test-icon,
+.test-description {
     display: none;
+}
+
+.test-title {
+    font-size: 1em;
+    color: inherit;
+    margin: 0;
+}
+
+/* Footer */
+.site-footer {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    color: #888;
+}
+
+/* Giao diện trang quiz */
+.question {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.question p {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.question label {
+    display: block;
+    margin-bottom: 8px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.question label:hover {
+    background-color: #f0f4f8;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+button:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+/* Style cho phần xem lại */
+#result {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 1.2em;
+    font-weight: bold;
+    background-color: #e7f3ff;
+    border-left: 5px solid #005a9c;
 }
 
 #review-section h2 {
@@ -33,6 +171,11 @@
     font-weight: bold;
 }
 
+.review-correct-answer {
+    color: #28a745;
+    font-weight: bold;
+}
+
 .explanation {
     margin-top: 10px;
     padding: 10px;
@@ -42,8 +185,14 @@
     font-size: 0.95em;
 }
 
-/* Thêm vào cuối file style.css */
-.review-correct-answer {
-    color: #28a745; /* Màu xanh lá cây */
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #005a9c;
+    text-decoration: none;
     font-weight: bold;
+}
+
+.back-link:hover {
+    text-decoration: underline;
 }
