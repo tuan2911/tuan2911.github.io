@@ -42,3 +42,8 @@
     font-size: 0.95em;
 }
 
+/* Thêm vào cuối file style.css */
+.review-correct-answer {
+    color: #28a745; /* Màu xanh lá cây */
+    font-weight: bold;
+}
