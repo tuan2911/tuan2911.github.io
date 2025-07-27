@@ -38,20 +38,19 @@
     <script>
         const submitBtn = document.getElementById('submit-btn');
         const quizForm = document.getElementById('quiz-form');
-
+    
         submitBtn.addEventListener('click', () => {
             const studentName = document.getElementById('student-name').value;
-
+    
             if (!studentName) {
                 alert('Vui lòng nhập đầy đủ Họ và tên!');
                 return;
             }
-
+    
             const userAnswers = new FormData(quizForm);
             const answersObject = Object.fromEntries(userAnswers.entries());
             const quizId = quizForm.getAttribute('data-quiz-id');
-
-            // Dữ liệu lưu trữ giờ đã gọn hơn
+    
             const submissionData = {
                 quizId: quizId,
                 name: studentName,
@@ -59,6 +58,10 @@
             };
             
             localStorage.setItem('submissionData', JSON.stringify(submissionData));
+            
+            // DÒNG CODE GỠ LỖI
+            alert('Đã lưu dữ liệu thành công! Chuẩn bị chuyển sang trang kết quả.');
+            
             window.location.href = 'ket-qua.html';
         });
     </script>
