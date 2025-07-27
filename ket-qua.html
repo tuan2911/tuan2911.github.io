@@ -1,87 +1,67 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kết quả bài kiểm tra</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Kết quả bài làm</h1>
-        
-        <div id="result"></div>
-
-        <div id="review-section">
-            <h2>Xem lại bài làm và giải thích</h2>
-            <div id="review-content"></div>
-        </div>
-
-        <a href="index.html" class="back-link">Quay về trang chủ</a>
-    </div>
-
-    <script>
-        // Nơi chứa TẤT CẢ đáp án và giải thích cho MỌI bài thi
-        const allQuizzesData = {
-            'mau': { // 'mau' phải khớp với data-quiz-id ở tệp bài làm
-                questions: {
-                    q1: { text: '<strong>Câu 1:</strong> Thủ đô của Việt Nam là gì?', answer: 'c', explanation: 'Hà Nội là thủ đô của nước Cộng hòa Xã hội chủ nghĩa Việt Nam từ năm 1976.' },
-                    q2: { text: '<strong>Câu 2:</strong> 5 x 8 bằng bao nhiêu?', answer: 'b', explanation: 'Phép nhân cơ bản: 5 nhân 8 bằng 40.' }
-                },
-                options: {
-                    q1: { a: 'A. TP. Hồ Chí Minh', b: 'B. Đà Nẵng', c: 'C. Hà Nội' },
-                    q2: { a: 'A. 35', b: 'B. 40', c: 'C. 45' }
-                }
+<script>
+    // Nơi chứa TẤT CẢ đáp án và giải thích cho MỌI bài thi
+    const allQuizzesData = {
+        'mau': { // 'mau' phải khớp với data-quiz-id ở tệp bài làm
+            questions: {
+                q1: { text: '<strong>Câu 1:</strong> Thủ đô của Việt Nam là gì?', answer: 'c', explanation: 'Hà Nội là thủ đô của nước Cộng hòa Xã hội chủ nghĩa Việt Nam từ năm 1976.' },
+                q2: { text: '<strong>Câu 2:</strong> 5 x 8 bằng bao nhiêu?', answer: 'b', explanation: 'Phép nhân cơ bản: 5 nhân 8 bằng 40.' }
             },
-            'toan': { // Ví dụ cho bài thi toán
-                // ... định nghĩa câu hỏi và đáp án cho bài toán ở đây
+            options: {
+                q1: { a: 'A. TP. Hồ Chí Minh', b: 'B. Đà Nẵng', c: 'C. Hà Nội' },
+                q2: { a: 'A. 35', b: 'B. 40', c: 'C. 45' }
             }
-        };
-
-        // Lấy dữ liệu từ localStorage
-        const userAnswers = JSON.parse(localStorage.getItem('quizResults'));
-        const quizId = localStorage.getItem('quizId');
-        const quizData = allQuizzesData[quizId];
-
-        if (userAnswers && quizData) {
-            let score = 0;
-            let reviewHTML = '';
-            
-            for (const questionId in quizData.questions) {
-                const questionInfo = quizData.questions[questionId];
-                const userAnswerValue = userAnswers[questionId];
-                
-                reviewHTML += `<div class="review-item">`;
-                reviewHTML += `<p>${questionInfo.text}</p>`;
-
-                if (userAnswerValue) {
-                    const userAnswerText = quizData.options[questionId][userAnswerValue];
-                    reviewHTML += `<p><strong>Bạn chọn:</strong> ${userAnswerText}</p>`;
-
-                    if (userAnswerValue === questionInfo.answer) {
-                        score++;
-                        reviewHTML += `<p class="review-correct">✅ Chính xác</p>`;
-                    } else {
-                        reviewHTML += `<p class="review-incorrect">❌ Sai rồi</p>`;
-                    }
-                } else {
-                    reviewHTML += `<p><strong>Bạn chưa trả lời.</strong></p>`;
-                }
-                
-                reviewHTML += `<div class="explanation"><strong>Giải thích:</strong> ${questionInfo.explanation}</div>`;
-                reviewHTML += `</div>`;
-            }
-
-            const totalQuestions = Object.keys(quizData.questions).length;
-            document.getElementById('result').innerHTML = `<h3>Kết quả: Bạn đã trả lời đúng ${score}/${totalQuestions} câu!</h3>`;
-            document.getElementById('review-content').innerHTML = reviewHTML;
-            
-            // Xóa dữ liệu sau khi đã hiển thị để không ảnh hưởng lần sau
-            localStorage.removeItem('quizResults');
-            localStorage.removeItem('quizId');
-        } else {
-            document.getElementById('result').innerHTML = '<h3>Không tìm thấy dữ liệu bài làm. Vui lòng thử lại.</h3>';
+        },
+        'toan': { // Ví dụ cho bài thi toán
+            // ... định nghĩa câu hỏi và đáp án cho bài toán ở đây
         }
-    </script>
-</body>
-</html>
+    };
+
+    // Lấy dữ liệu từ localStorage
+    const userAnswers = JSON.parse(localStorage.getItem('quizResults'));
+    const quizId = localStorage.getItem('quizId');
+    const quizData = allQuizzesData[quizId];
+
+    if (userAnswers && quizData) {
+        let score = 0;
+        let reviewHTML = '';
+        
+        for (const questionId in quizData.questions) {
+            const questionInfo = quizData.questions[questionId];
+            const userAnswerValue = userAnswers[questionId];
+            
+            reviewHTML += `<div class="review-item">`;
+            reviewHTML += `<p>${questionInfo.text}</p>`;
+
+            if (userAnswerValue) {
+                const userAnswerText = quizData.options[questionId][userAnswerValue];
+                reviewHTML += `<p><strong>Bạn chọn:</strong> ${userAnswerText}</p>`;
+
+                if (userAnswerValue === questionInfo.answer) {
+                    score++;
+                    reviewHTML += `<p class="review-correct">✅ Chính xác</p>`;
+                } else {
+                    reviewHTML += `<p class="review-incorrect">❌ Sai rồi</p>`;
+                    // --- PHẦN MỚI ĐƯỢC THÊM VÀO ---
+                    const correctAnswerKey = questionInfo.answer;
+                    const correctAnswerText = quizData.options[questionId][correctAnswerKey];
+                    reviewHTML += `<p class="review-correct-answer"><strong>Đáp án đúng:</strong> ${correctAnswerText}</p>`;
+                    // --- KẾT THÚC PHẦN MỚI ---
+                }
+            } else {
+                reviewHTML += `<p><strong>Bạn chưa trả lời.</strong></p>`;
+            }
+            
+            reviewHTML += `<div class="explanation"><strong>Giải thích:</strong> ${questionInfo.explanation}</div>`;
+            reviewHTML += `</div>`;
+        }
+
+        const totalQuestions = Object.keys(quizData.questions).length;
+        document.getElementById('result').innerHTML = `<h3>Kết quả: Bạn đã trả lời đúng ${score}/${totalQuestions} câu!</h3>`;
+        document.getElementById('review-content').innerHTML = reviewHTML;
+        
+        localStorage.removeItem('quizResults');
+        localStorage.removeItem('quizId');
+    } else {
+        document.getElementById('result').innerHTML = '<h3>Không tìm thấy dữ liệu bài làm. Vui lòng thử lại.</h3>';
+    }
+</script>
