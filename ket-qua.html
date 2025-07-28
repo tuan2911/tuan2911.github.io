@@ -15,7 +15,8 @@
     };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    </head>
+</head>
+
 <body>
     <div class="container">
         <h1>Kết quả bài làm</h1>
@@ -28,100 +29,125 @@
     </div>
 
     <script>
-        // --- PHẦN CÀI ĐẶT (Sử dụng thông tin chính xác của bạn) ---
-        const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfNn5BF8oejY9kTGkoTLIO0BzhF99R9fURFA6avaASmXPw32w/formResponse';
-        const NAME_ENTRY_ID = 'entry.1858710141';
-        const SCORE_ENTRY_ID = 'entry.1307362548';
+    // --- PHẦN CÀI ĐẶT (Cập nhật với thông tin của bạn) ---
+    const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfNn5BF8oejY9kTGkoTLIO0BzhF99R9fURFA6avaASmXPw32w/formResponse';
+    const NAME_ENTRY_ID = 'entry.1858710141';
+    const QUIZ_NAME_ENTRY_ID = 'entry.1728486612'; // <-- ĐIỀN MÃ MỚI VÀO ĐÂY
+    const SCORE_ENTRY_ID = 'entry.1307362548';
+    // --- KẾT THÚC PHẦN CÀI ĐẶT ---
 
-        const allQuizzesData = {
-            'mau': {
-                questions: {
-                    q1: { text: '<strong>Câu 1:</strong> Thủ đô của Việt Nam là gì?', answer: 'c', explanation: 'Hà Nội là thủ đô của nước Cộng hòa Xã hội chủ nghĩa Việt Nam từ năm 1976.' },
-                    q2: { text: '<strong>Câu 2:</strong> 5 x 8 bằng bao nhiêu?', answer: 'b', explanation: 'Phép nhân cơ bản: 5 nhân 8 bằng 40.' }
-                },
-                options: {
-                    q1: { a: 'A. TP. Hồ Chí Minh', b: 'B. Đà Nẵng', c: 'C. Hà Nội' },
-                    q2: { a: 'A. 35', b: 'B. 40', c: 'C. 45' }
-                }
+    // Nơi chứa TẤT CẢ đáp án, giải thích và TIÊU ĐỀ cho MỌI bài thi
+    const allQuizzesData = {
+        'mau': {
+            title: 'Bài kiểm tra Mẫu', // Thêm tiêu đề cho bài thi
+            questions: {
+                q1: { text: '<strong>Câu 1:</strong> Thủ đô của Việt Nam là gì?', answer: 'c', explanation: 'Hà Nội là thủ đô của nước Cộng hòa Xã hội chủ nghĩa Việt Nam từ năm 1976.' },
+                q2: { text: '<strong>Câu 2:</strong> 5 x 8 bằng bao nhiêu?', answer: 'b', explanation: 'Phép nhân cơ bản: 5 nhân 8 bằng 40.' }
             },
-            'menhde': {
-                questions: {
-                    q1: { text: '<strong>Câu 1:</strong> Khẳng định nào sau đây là một mệnh đề?', answer: 'c', explanation: 'Một mệnh đề là một khẳng định có thể xác định được tính đúng hoặc sai. "Số 9 là số chính phương" là một khẳng định đúng.' },
-                    q2: { text: '<strong>Câu 2:</strong> Mệnh đề "Nếu một số chia hết cho 4 thì nó chia hết cho 2" là mệnh đề đúng hay sai?', answer: 'a', explanation: 'Nếu một số chia hết cho 4 (ví dụ: 4, 8, 12) thì chắc chắn nó cũng chia hết cho 2. Giả thiết đúng luôn dẫn đến kết luận đúng.' },
-                    q3: { text: '<strong>Câu 3:</strong> Cho mệnh đề $P$: "Mọi số nguyên đều là số hữu tỉ". Mệnh đề phủ định $\\overline{P}$ là gì?', answer: 'b', explanation: 'Phủ định của "mọi" là "tồn tại một cái không". Do đó, phủ định là "Tồn tại một số nguyên không phải là số hữu tỉ".' },
-                    q4: { text: '<strong>Câu 4:</strong> Mệnh đề $P \\Rightarrow Q$ chỉ sai khi nào?', answer: 'b', explanation: 'Mệnh đề kéo theo chỉ sai khi giả thiết ($P$) đúng và kết luận ($Q$) sai.' },
-                    q5: { text: '<strong>Câu 5:</strong> Mệnh đề "Tam giác ABC là tam giác đều" là điều kiện đủ để "Tam giác ABC có ba góc bằng $60^\\circ$". Mệnh đề nào sau đây thể hiện điều đó?', answer: 'b', explanation: 'Trong mệnh đề $P \\Rightarrow Q$, $P$ là điều kiện đủ để có $Q$. Ở đây, $P$ là "Tam giác ABC là tam giác đều" và $Q$ là "Tam giác ABC có ba góc bằng $60^\\circ$".' },
-                    q6: { text: '<strong>Câu 6:</strong> Mệnh đề "$\\exists x \\in \\mathbb{R}, x^2 < 0$" là mệnh đề đúng hay sai?', answer: 'b', explanation: 'Mệnh đề này sai vì bình phương của một số thực luôn không âm ($x^2 \\ge 0$), do đó không tồn tại số thực nào mà bình phương của nó nhỏ hơn 0.' },
-                    q7: { text: '<strong>Câu 7:</strong> Mệnh đề "$\\forall n \\in \\mathbb{N}, n+1 > n$" là mệnh đề đúng hay sai?', answer: 'a', explanation: 'Mệnh đề này đúng vì với bất kỳ số tự nhiên nào, khi cộng thêm 1, kết quả luôn lớn hơn chính số đó.' },
-                    q8: { text: '<strong>Câu 8:</strong> Cho mệnh đề $P$: "Hà Nội là thủ đô của Việt Nam" và $Q$: "Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam". Mệnh đề $P \\land Q$ là gì?', answer: 'c', explanation: 'Ký hiệu $\\land$ biểu thị phép nối "và". Do đó, mệnh đề $P \\land Q$ có nghĩa là "Hà Nội là thủ đô của Việt Nam và Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam".' },
-                    q9: { text: '<strong>Câu 9:</strong> Mệnh đề "Một số là số chẵn khi và chỉ khi nó chia hết cho 2" là loại mệnh đề gì?', answer: 'c', explanation: 'Cụm từ "khi và chỉ khi" biểu thị một mệnh đề tương đương ($P \\Leftrightarrow Q$).' },
-                    q10: { text: '<strong>Câu 10:</strong> Phủ định của mệnh đề "$\\exists x \\in \\mathbb{Z}, x^2 = 5$" là gì?', answer: 'a', explanation: 'Phủ định của "tồn tại" ($\\exists$) là "với mọi" ($\\forall$), và phủ định của "$=$" là "$\\ne$". Do đó, phủ định là "$\\forall x \\in \\mathbb{Z}, x^2 \\ne 5$".' }
-                },
-                options: {
-                    q1: { a: 'A. Hôm nay trời đẹp quá!', b: 'B. $x + 5 = 10$', c: 'C. Số 9 là số chính phương.' },
-                    q2: { a: 'A. Đúng', b: 'B. Sai', c: 'C. Không xác định được' },
-                    q3: { a: 'A. Mọi số nguyên đều không phải là số hữu tỉ.', b: 'B. Tồn tại một số nguyên không phải là số hữu tỉ.', c: 'C. Mọi số hữu tỉ đều là số nguyên.' },
-                    q4: { a: 'A. $P$ đúng, $Q$ đúng', b: 'B. $P$ đúng, $Q$ sai', c: 'C. $P$ sai, $Q$ đúng' },
-                    q5: { a: 'A. Tam giác ABC có ba góc bằng $60^\\circ$ $\\Rightarrow$ Tam giác ABC là tam giác đều.', b: 'B. Tam giác ABC là tam giác đều $\\Rightarrow$ Tam giác ABC có ba góc bằng $60^\\circ$.', c: 'C. Tam giác ABC là tam giác đều $\\Leftrightarrow$ Tam giác ABC có ba góc bằng $60^\\circ$.' },
-                    q6: { a: 'A. Đúng', b: 'B. Sai', c: 'C. Không xác định được' },
-                    q7: { a: 'A. Đúng', b: 'B. Sai', c: 'C. Tùy thuộc vào giá trị của n' },
-                    q8: { a: 'A. Hà Nội là thủ đô của Việt Nam hoặc Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam.', b: 'B. Nếu Hà Nội là thủ đô của Việt Nam thì Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam.', c: 'C. Hà Nội là thủ đô của Việt Nam và Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam.' },
-                    q9: { a: 'A. Mệnh đề kéo theo', b: 'B. Mệnh đề đảo', c: 'C. Mệnh đề tương đương' },
-                    q10: { a: 'A. $\\forall x \\in \\mathbb{Z}, x^2 \\ne 5$', b: 'B. $\\exists x \\in \\mathbb{Z}, x^2 \\ne 5$', c: 'C. $\\forall x \\notin \\mathbb{Z}, x^2 = 5$' }
-                }
+            options: {
+                q1: { a: 'A. TP. Hồ Chí Minh', b: 'B. Đà Nẵng', c: 'C. Hà Nội' },
+                q2: { a: 'A. 35', b: 'B. 40', c: 'C. 45' }
             }
-        };
+        },
+        'menhde': {
+            title: 'Bài ôn tập Mệnh đề', // Thêm tiêu đề cho bài thi
+            questions: {
+                q1: { text: '<strong>Câu 1:</strong> Khẳng định nào sau đây là một mệnh đề?', answer: 'c', explanation: 'Một mệnh đề là một khẳng định có thể xác định được tính đúng hoặc sai. "Số 9 là số chính phương" là một khẳng định đúng.' },
+                q2: { text: '<strong>Câu 2:</strong> Mệnh đề "Nếu một số chia hết cho 4 thì nó chia hết cho 2" là mệnh đề đúng hay sai?', answer: 'a', explanation: 'Nếu một số chia hết cho 4 (ví dụ: 4, 8, 12) thì chắc chắn nó cũng chia hết cho 2. Giả thiết đúng luôn dẫn đến kết luận đúng.' },
+                q3: { text: '<strong>Câu 3:</strong> Cho mệnh đề $P$: "Mọi số nguyên đều là số hữu tỉ". Mệnh đề phủ định $\\overline{P}$ là gì?', answer: 'b', explanation: 'Phủ định của "mọi" là "tồn tại một cái không". Do đó, phủ định là "Tồn tại một số nguyên không phải là số hữu tỉ".' },
+                q4: { text: '<strong>Câu 4:</strong> Mệnh đề $P \\Rightarrow Q$ chỉ sai khi nào?', answer: 'b', explanation: 'Mệnh đề kéo theo chỉ sai khi giả thiết ($P$) đúng và kết luận ($Q$) sai.' },
+                q5: { text: '<strong>Câu 5:</strong> Mệnh đề "Tam giác ABC là tam giác đều" là điều kiện đủ để "Tam giác ABC có ba góc bằng $60^\\circ$". Mệnh đề nào sau đây thể hiện điều đó?', answer: 'b', explanation: 'Trong mệnh đề $P \\Rightarrow Q$, $P$ là điều kiện đủ để có $Q$. Ở đây, $P$ là "Tam giác ABC là tam giác đều" và $Q$ là "Tam giác ABC có ba góc bằng $60^\\circ$".' },
+                q6: { text: '<strong>Câu 6:</strong> Mệnh đề "$\\exists x \\in \\mathbb{R}, x^2 < 0$" là mệnh đề đúng hay sai?', answer: 'b', explanation: 'Mệnh đề này sai vì bình phương của một số thực luôn không âm ($x^2 \\ge 0$), do đó không tồn tại số thực nào mà bình phương của nó nhỏ hơn 0.' },
+                q7: { text: '<strong>Câu 7:</strong> Mệnh đề "$\\forall n \\in \\mathbb{N}, n+1 > n$" là mệnh đề đúng hay sai?', answer: 'a', explanation: 'Mệnh đề này đúng vì với bất kỳ số tự nhiên nào, khi cộng thêm 1, kết quả luôn lớn hơn chính số đó.' },
+                q8: { text: '<strong>Câu 8:</strong> Cho mệnh đề $P$: "Hà Nội là thủ đô của Việt Nam" và $Q$: "Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam". Mệnh đề $P \\land Q$ là gì?', answer: 'c', explanation: 'Ký hiệu $\\land$ biểu thị phép nối "và". Do đó, mệnh đề $P \\land Q$ có nghĩa là "Hà Nội là thủ đô của Việt Nam và Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam".' },
+                q9: { text: '<strong>Câu 9:</strong> Mệnh đề "Một số là số chẵn khi và chỉ khi nó chia hết cho 2" là loại mệnh đề gì?', answer: 'c', explanation: 'Cụm từ "khi và chỉ khi" biểu thị một mệnh đề tương đương ($P \\Leftrightarrow Q$).' },
+                q10: { text: '<strong>Câu 10:</strong> Phủ định của mệnh đề "$\\exists x \\in \\mathbb{Z}, x^2 = 5$" là gì?', answer: 'a', explanation: 'Phủ định của "tồn tại" ($\\exists$) là "với mọi" ($\\forall$), và phủ định của "$=$" là "$\\ne$". Do đó, phủ định là "$\\forall x \\in \\mathbb{Z}, x^2 \\ne 5$".' }
+            },
+            options: {
+                q1: { a: 'A. Hôm nay trời đẹp quá!', b: 'B. $x + 5 = 10$', c: 'C. Số 9 là số chính phương.' },
+                q2: { a: 'A. Đúng', b: 'B. Sai', c: 'C. Không xác định được' },
+                q3: { a: 'A. Mọi số nguyên đều không phải là số hữu tỉ.', b: 'B. Tồn tại một số nguyên không phải là số hữu tỉ.', c: 'C. Mọi số hữu tỉ đều là số nguyên.' },
+                q4: { a: 'A. $P$ đúng, $Q$ đúng', b: 'B. $P$ đúng, $Q$ sai', c: 'C. $P$ sai, $Q$ đúng' },
+                q5: { a: 'A. Tam giác ABC có ba góc bằng $60^\\circ$ $\\Rightarrow$ Tam giác ABC là tam giác đều.', b: 'B. Tam giác ABC là tam giác đều $\\Rightarrow$ Tam giác ABC có ba góc bằng $60^\\circ$.', c: 'C. Tam giác ABC là tam giác đều $\\Leftrightarrow$ Tam giác ABC có ba góc bằng $60^\\circ$.' },
+                q6: { a: 'A. Đúng', b: 'B. Sai', c: 'C. Không xác định được' },
+                q7: { a: 'A. Đúng', b: 'B. Sai', c: 'C. Tùy thuộc vào giá trị của n' },
+                q8: { a: 'A. Hà Nội là thủ đô của Việt Nam hoặc Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam.', b: 'B. Nếu Hà Nội là thủ đô của Việt Nam thì Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam.', c: 'C. Hà Nội là thủ đô của Việt Nam và Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam.' },
+                q9: { a: 'A. Mệnh đề kéo theo', b: 'B. Mệnh đề đảo', c: 'C. Mệnh đề tương đương' },
+                q10: { a: 'A. $\\forall x \\in \\mathbb{Z}, x^2 \\ne 5$', b: 'B. $\\exists x \\in \\mathbb{Z}, x^2 \\ne 5$', c: 'C. $\\forall x \\notin \\mathbb{Z}, x^2 = 5$' }
+            }
+        }
+    };
 
-        // --- Phần code còn lại giữ nguyên ---
-        // --- HÀM GỬI DỮ LIỆU ĐÃ ĐƯỢC CẬP NHẬT ---
-        async function submitToGoogleForms(name, score) {
-            const formData = new URLSearchParams();
-            formData.append(NAME_ENTRY_ID, name);
-            formData.append(SCORE_ENTRY_ID, score);
-            try {
-                await fetch(GOOGLE_FORM_ACTION_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
-                    body: formData.toString()
-                });
-            } catch (error) { console.error('Lỗi khi gửi đến Google Forms:', error); }
+    // --- HÀM GỬI DỮ LIỆU ĐÃ ĐƯỢC CẬP NHẬT ---
+    async function submitToGoogleForms(name, quizName, score) {
+        const formData = new URLSearchParams();
+        formData.append(NAME_ENTRY_ID, name);
+        formData.append(QUIZ_NAME_ENTRY_ID, quizName); // Gửi thêm tên bài thi
+        formData.append(SCORE_ENTRY_ID, score);
+
+        try {
+            await fetch(GOOGLE_FORM_ACTION_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+                body: formData.toString()
+            });
+        } catch (error) {
+            console.error('Lỗi khi gửi đến Google Forms:', error);
         }
-        function processResults() {
-            const savedData = JSON.parse(localStorage.getItem('submissionData'));
-            if (!savedData) { document.getElementById('result').innerHTML = '<h3>Không tìm thấy dữ liệu bài làm.</h3>'; return; }
-            const { quizId, name, answers: userAnswers } = savedData;
-            const quizData = allQuizzesData[quizId];
-            if (!quizData) { document.getElementById('result').innerHTML = '<h3>Lỗi: Không tìm thấy dữ liệu cho bài kiểm tra này.</h3>'; return; }
-            let score = 0;
-            const totalQuestions = Object.keys(quizData.questions).length;
-            let reviewHTML = '';
-            for (const questionId in quizData.questions) {
-                const questionInfo = quizData.questions[questionId];
-                const userAnswerValue = userAnswers[questionId];
-                reviewHTML += `<div class="review-item"><p>${questionInfo.text}</p>`;
-                if (userAnswerValue) {
-                    const userAnswerText = quizData.options[questionId][userAnswerValue];
-                    reviewHTML += `<p><strong>Bạn chọn:</strong> ${userAnswerText}</p>`;
-                    if (userAnswerValue === questionInfo.answer) {
-                        score++;
-                        reviewHTML += `<p class="review-correct">✅ Chính xác</p>`;
-                    } else {
-                        reviewHTML += `<p class="review-incorrect">❌ Sai rồi</p>`;
-                        const correctAnswerKey = questionInfo.answer;
-                        const correctAnswerText = quizData.options[questionId][correctAnswerKey];
-                        reviewHTML += `<p class="review-correct-answer"><strong>Đáp án đúng:</strong> ${correctAnswerText}</p>`;
-                    }
-                } else { reviewHTML += `<p><strong>Bạn chưa trả lời.</strong></p>`; }
-                reviewHTML += `<div class="explanation"><strong>Giải thích:</strong> ${questionInfo.explanation}</div></div>`;
+    }
+
+    // Hàm chính để xử lý và hiển thị
+    function processResults() {
+        const savedData = JSON.parse(localStorage.getItem('submissionData'));
+        if (!savedData) {
+            document.getElementById('result').innerHTML = '<h3>Không tìm thấy dữ liệu bài làm.</h3>';
+            return;
+        }
+
+        const { quizId, name, answers: userAnswers } = savedData;
+        const quizData = allQuizzesData[quizId];
+        if (!quizData) {
+            document.getElementById('result').innerHTML = '<h3>Lỗi: Không tìm thấy dữ liệu cho bài kiểm tra này.</h3>';
+            return;
+        }
+
+        let score = 0;
+        const totalQuestions = Object.keys(quizData.questions).length;
+        let reviewHTML = '';
+        for (const questionId in quizData.questions) {
+            const questionInfo = quizData.questions[questionId];
+            const userAnswerValue = userAnswers[questionId];
+            reviewHTML += `<div class="review-item"><p>${questionInfo.text}</p>`;
+            if (userAnswerValue) {
+                const userAnswerText = quizData.options[questionId][userAnswerValue];
+                reviewHTML += `<p><strong>Bạn chọn:</strong> ${userAnswerText}</p>`;
+                if (userAnswerValue === questionInfo.answer) {
+                    score++;
+                    reviewHTML += `<p class="review-correct">✅ Chính xác</p>`;
+                } else {
+                    reviewHTML += `<p class="review-incorrect">❌ Sai rồi</p>`;
+                    const correctAnswerKey = questionInfo.answer;
+                    const correctAnswerText = quizData.options[questionId][correctAnswerKey];
+                    reviewHTML += `<p class="review-correct-answer"><strong>Đáp án đúng:</strong> ${correctAnswerText}</p>`;
+                }
+            } else {
+                reviewHTML += `<p><strong>Bạn chưa trả lời.</strong></p>`;
             }
-            const scoreText = `${score}/${totalQuestions}`;
-            document.getElementById('result').innerHTML = `<h3>Kết quả của ${name}: ${scoreText} câu đúng!</h3>`;
-            document.getElementById('review-content').innerHTML = reviewHTML;
-            submitToGoogleForms(name, scoreText);
-            localStorage.removeItem('submissionData');
+            reviewHTML += `<div class="explanation"><strong>Giải thích:</strong> ${questionInfo.explanation}</div></div>`;
         }
-        processResults();
-    </script>
+
+        const scoreText = `${score}/${totalQuestions}`;
+        document.getElementById('result').innerHTML = `<h3>Kết quả của ${name}: ${scoreText} câu đúng!</h3>`;
+        document.getElementById('review-content').innerHTML = reviewHTML;
+        
+        // Gửi dữ liệu đi với đầy đủ thông tin
+        submitToGoogleForms(name, quizData.title, scoreText);
+
+        localStorage.removeItem('submissionData');
+    }
+
+    processResults();
+</script>
 </body>
 </html>
