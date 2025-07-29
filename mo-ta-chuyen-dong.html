@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài ôn tập mô tả chuyển động</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+    // Cấu hình để MathJax nhận diện công thức trong dấu $...$
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Bài ôn tập mô tả chuyển động</h1>
+
+        <form id="quiz-form" data-quiz-id="mau">
+            <div class="student-info">
+                <label for="student-name">Họ và tên:</label>
+                <input type="text" id="student-name" required>
+            </div>
+
+            <div class="question" data-question-id="q1">
+                <p><strong>Câu 1:</strong> Thủ đô của Việt Nam là gì?</p>
+                <label><input type="radio" name="q1" value="a"> A. TP. Hồ Chí Minh</label><br>
+                <label><input type="radio" name="q1" value="b"> B. Đà Nẵng</label><br>
+                <label><input type="radio" name="q1" value="c"> C. Hà Nội</label><br>
+            </div>
+
+            <div class="question" data-question-id="q2">
+                <p><strong>Câu 2:</strong> 5 x 8 bằng bao nhiêu?</p>
+                <label><input type="radio" name="q2" value="a"> A. 35</label><br>
+                <label><input type="radio" name="q2" value="b"> B. 40</label><br>
+                <label><input type="radio" name="q2" value="c"> C. 45</label><br>
+            </div>
+        </form>
+
+        <button id="submit-btn">Nộp bài</button>
+        <a href="index.html" class="back-link">Quay lại trang chính</a>
+    </div>
+
+    <script>
+        const submitBtn = document.getElementById('submit-btn');
+        const quizForm = document.getElementById('quiz-form');
+    
+        submitBtn.addEventListener('click', () => {
+            const studentName = document.getElementById('student-name').value;
+    
+            if (!studentName) {
+                alert('Vui lòng nhập đầy đủ Họ và tên!');
+                return;
+            }
+    
+            const userAnswers = new FormData(quizForm);
+            const answersObject = Object.fromEntries(userAnswers.entries());
+            const quizId = quizForm.getAttribute('data-quiz-id');
+    
+            const submissionData = {
+                quizId: quizId,
+                name: studentName,
+                answers: answersObject
+            };
+            
+            localStorage.setItem('submissionData', JSON.stringify(submissionData));
+            
+            // DÒNG CODE GỠ LỖI
+            alert('Đã lưu dữ liệu thành công! Chuẩn bị chuyển sang trang kết quả.');
+            
+            window.location.href = 'ket-qua.html';
+        });
+    </script>
+</body>
+</html>
