@@ -2,71 +2,61 @@ TITLE: Bài ôn tập Mệnh đề
 ID: menhde
 
 Q: Khẳng định nào sau đây là một mệnh đề?
-O: A. Hôm nay trời đẹp quá!
-O: B. $x + 5 = 10$
-O: C. Số 9 là số chính phương.
-A: C
+O: Hôm nay trời đẹp quá!
+O: $x + 5 = 10$
+A: Số 9 là số chính phương.
 E: Một mệnh đề là một khẳng định có thể xác định được tính đúng hoặc sai. "Số 9 là số chính phương" là một khẳng định đúng.
 
 Q: Mệnh đề "Nếu một số chia hết cho 4 thì nó chia hết cho 2" là mệnh đề đúng hay sai?
-O: A. Đúng
-O: B. Sai
-O: C. Không xác định được
-A: A
+A: Đúng
+O: Sai
+O: Không xác định được
 E: Nếu một số chia hết cho 4 (ví dụ: 4, 8, 12) thì chắc chắn nó cũng chia hết cho 2. Giả thiết đúng luôn dẫn đến kết luận đúng.
 
 Q: Cho mệnh đề $P$: "Mọi số nguyên đều là số hữu tỉ". Mệnh đề phủ định $\overline{P}$ là gì?
-O: A. Mọi số nguyên đều không phải là số hữu tỉ.
-O: B. Tồn tại một số nguyên không phải là số hữu tỉ.
-O: C. Mọi số hữu tỉ đều là số nguyên.
-A: B
+O: Mọi số nguyên đều không phải là số hữu tỉ.
+A: Tồn tại một số nguyên không phải là số hữu tỉ.
+O: Mọi số hữu tỉ đều là số nguyên.
 E: Phủ định của "mọi" là "tồn tại một cái không". Do đó, phủ định là "Tồn tại một số nguyên không phải là số hữu tỉ".
 
 Q: Mệnh đề $P \Rightarrow Q$ chỉ sai khi nào?
-O: A. $P$ đúng, $Q$ đúng
-O: B. $P$ đúng, $Q$ sai
-O: C. $P$ sai, $Q$ đúng
-A: B
+O: $P$ đúng, $Q$ đúng
+A: $P$ đúng, $Q$ sai
+O: $P$ sai, $Q$ đúng
 E: Mệnh đề kéo theo chỉ sai khi giả thiết ($P$) đúng và kết luận ($Q$) sai.
 
 Q: Mệnh đề "Tam giác ABC là tam giác đều" là điều kiện đủ để "Tam giác ABC có ba góc bằng $60^\circ$". Mệnh đề nào sau đây thể hiện điều đó?
-O: A. Tam giác ABC có ba góc bằng $60^\circ$ $\Rightarrow$ Tam giác ABC là tam giác đều.
-O: B. Tam giác ABC là tam giác đều $\Rightarrow$ Tam giác ABC có ba góc bằng $60^\circ$.
-O: C. Tam giác ABC là tam giác đều $\Leftrightarrow$ Tam giác ABC có ba góc bằng $60^\circ$.
-A: B
+O: Tam giác ABC có ba góc bằng $60^\circ$ $\Rightarrow$ Tam giác ABC là tam giác đều.
+A: Tam giác ABC là tam giác đều $\Rightarrow$ Tam giác ABC có ba góc bằng $60^\circ$.
+O: Tam giác ABC là tam giác đều $\Leftrightarrow$ Tam giác ABC có ba góc bằng $60^\circ$.
 E: Trong mệnh đề $P \Rightarrow Q$, $P$ là điều kiện đủ để có $Q$. Ở đây, $P$ là "Tam giác ABC là tam giác đều" và $Q$ là "Tam giác ABC có ba góc bằng $60^\circ$".
 
 Q: Mệnh đề "$\exists x \in \mathbb{R}, x^2 < 0$" là mệnh đề đúng hay sai?
-O: A. Đúng
-O: B. Sai
-O: C. Không xác định được
-A: B
+O: Đúng
+A: Sai
+O: Không xác định được
 E: Mệnh đề này sai vì bình phương của một số thực luôn không âm ($x^2 \ge 0$), do đó không tồn tại số thực nào mà bình phương của nó nhỏ hơn 0.
 
 Q: Mệnh đề "$\forall n \in \mathbb{N}, n+1 > n$" là mệnh đề đúng hay sai?
-O: A. Đúng
-O: B. Sai
-O: C. Tùy thuộc vào giá trị của n
-A: A
+A: Đúng
+O: Sai
+O: Tùy thuộc vào giá trị của n
 E: Mệnh đề này đúng vì với bất kỳ số tự nhiên nào, khi cộng thêm 1, kết quả luôn lớn hơn chính số đó.
 
 Q: Cho mệnh đề $P$: "Hà Nội là thủ đô của Việt Nam" và $Q$: "Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam". Mệnh đề $P \land Q$ là gì?
-O: A. Hà Nội là thủ đô của Việt Nam hoặc Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam.
-O: B. Nếu Hà Nội là thủ đô của Việt Nam thì Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam.
-O: C. Hà Nội là thủ đô của Việt Nam và Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam.
-A: C
+O: Hà Nội là thủ đô của Việt Nam hoặc Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam.
+O: Nếu Hà Nội là thủ đô của Việt Nam thì Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam.
+A: Hà Nội là thủ đô của Việt Nam và Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam.
 E: Ký hiệu $\land$ biểu thị phép nối "và". Do đó, mệnh đề $P \land Q$ có nghĩa là "Hà Nội là thủ đô của Việt Nam và Thành phố Hồ Chí Minh là thành phố lớn nhất Việt Nam".
 
 Q: Mệnh đề "Một số là số chẵn khi và chỉ khi nó chia hết cho 2" là loại mệnh đề gì?
-O: A. Mệnh đề kéo theo
-O: B. Mệnh đề đảo
-O: C. Mệnh đề tương đương
-A: C
+O: Mệnh đề kéo theo
+O: Mệnh đề đảo
+A: Mệnh đề tương đương
 E: Cụm từ "khi và chỉ khi" biểu thị một mệnh đề tương đương ($P \Leftrightarrow Q$).
 
 Q: Phủ định của mệnh đề "$\exists x \in \mathbb{Z}, x^2 = 5$" là gì?
-O: A. $\forall x \in \mathbb{Z}, x^2 \ne 5$
-O: B. $\exists x \in \mathbb{Z}, x^2 \ne 5$
-O: C. $\forall x \notin \mathbb{Z}, x^2 = 5$
-A: A
+A: $\forall x \in \mathbb{Z}, x^2 \ne 5$
+O: $\exists x \in \mathbb{Z}, x^2 \ne 5$
+O: $\forall x \notin \mathbb{Z}, x^2 = 5$
 E: Phủ định của "tồn tại" ($\exists$) là "với mọi" ($\forall$), và phủ định của "$=$" là "$\ne$". Do đó, phủ định là "$\forall x \in \mathbb{Z}, x^2 \ne 5$".
