@@ -1,18 +1,16 @@
-TITLE: Bài ôn tập Mệnh đề
-ID: menhde
+TITLE: Bài kiểm tra mẫu
+ID: bai-kiem-tra-mau
 
-Q: Khẳng định nào sau đây là một mệnh đề?
-O: Hôm nay trời đẹp quá!
-O: $x + 5 = 10$
-O: Số 9 là số chính phương.
+Q: Thủ đô của Việt Nam là gì?
+O: TP. Hồ Chí Minh
+O: Đà Nẵng
+O: Hà Nội
 A: C
-E: Một mệnh đề là một khẳng định có thể xác định được tính đúng hoặc sai. "Số 9 là số chính phương" là một khẳng định đúng.
+E: Hà Nội là thủ đô của nước Cộng hòa Xã hội chủ nghĩa Việt Nam từ năm 1976.
 
-Q: Mệnh đề "Nếu một số chia hết cho 4 thì nó chia hết cho 2" là mệnh đề đúng hay sai?
-O: Đúng
-O: Sai
-O: Không xác định được
-A: A
-E: Nếu một số chia hết cho 4 (ví dụ: 4, 8, 12) thì chắc chắn nó cũng chia hết cho 2. Giả thiết đúng luôn dẫn đến kết luận đúng.
-
-// Soạn các câu hỏi tiếp theo theo cấu trúc tương tự...
+Q: 5 x 8 bằng bao nhiêu?
+O: 35
+O: 40
+O: 45
+A: B
+E: Phép nhân cơ bản: 5 nhân 8 bằng 40.
