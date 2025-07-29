@@ -2,12 +2,14 @@ TITLE: Bài kiểm tra mẫu
 ID: bai-kiem-tra-mau
 
 Q: Thủ đô của Việt Nam là gì?
+TYPE: choices
 O: TP. Hồ Chí Minh
 O: Đà Nẵng
 A: Hà Nội
 E: Hà Nội là thủ đô của nước Cộng hòa Xã hội chủ nghĩa Việt Nam từ năm 1976.
 
 Q: 5 x 8 bằng bao nhiêu?
+TYPE: choices
 O: 35
 O: 45
 A: 40

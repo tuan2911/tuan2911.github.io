@@ -35,19 +35,23 @@ function parseQuizTxt(txt) {
             if (currentQuestion) quiz.questions.push(currentQuestion);
             currentQuestion = {
                 text: line.replace('Q:', '').trim(),
+                type: 'choices', // Mặc định là trắc nghiệm
                 originalIndex: quiz.questions.length,
-                options: [], // Mảng chứa các lựa chọn
-                answer: '',  // Text của đáp án đúng
+                options: [],
+                answer: '',
                 explanation: ''
             };
+        } else if (line.startsWith('TYPE:')) {
+            currentQuestion.type = line.replace('TYPE:', '').trim();
         } else if (line.startsWith('O:')) {
-            // Đây là một đáp án SAI
             currentQuestion.options.push(line.replace('O:', '').trim());
         } else if (line.startsWith('A:')) {
-            // Đây là đáp án ĐÚNG
-            const correctAnswerText = line.replace('A:', '').trim();
-            currentQuestion.options.push(correctAnswerText);
-            currentQuestion.answer = correctAnswerText; // Lưu lại text của đáp án đúng
+            const answerText = line.replace('A:', '').trim();
+            // Nếu là câu trắc nghiệm, đáp án đúng cũng là một lựa chọn
+            if (currentQuestion.type === 'choices') {
+                currentQuestion.options.push(answerText);
+            }
+            currentQuestion.answer = answerText;
         } else if (line.startsWith('E:')) {
             currentQuestion.explanation = line.replace('E:', '').trim();
         }
@@ -96,9 +100,13 @@ async function handleQuizPage() {
         return;
     }
 
-    // Xáo trộn câu hỏi và các lựa chọn
+    // Xáo trộn câu hỏi và các lựa chọn của câu trắc nghiệm
     shuffleArray(quizData.questions);
-    quizData.questions.forEach(q => shuffleArray(q.options));
+    quizData.questions.forEach(q => {
+        if (q.type === 'choices') {
+            shuffleArray(q.options);
+        }
+    });
 
     document.title = quizData.title;
     quizTitleEl.textContent = quizData.title;
@@ -109,11 +117,15 @@ async function handleQuizPage() {
         questionsHTML += `<div class="question" data-question-id="${questionId}">`;
         questionsHTML += `<p><strong>Câu ${index + 1}:</strong> ${q.text}</p>`;
         
-        q.options.forEach((optionText, optionIdx) => {
-            const optionLetter = String.fromCharCode(65 + optionIdx);
-            // Giá trị của radio button là nội dung của lựa chọn
-            questionsHTML += `<label><input type="radio" name="${questionId}" value="${optionText}"> ${optionLetter}. ${optionText}</label><br>`;
-        });
+        if (q.type === 'choices') {
+            q.options.forEach((optionText, optionIdx) => {
+                const optionLetter = String.fromCharCode(65 + optionIdx);
+                questionsHTML += `<label><input type="radio" name="${questionId}" value="${optionText}"> ${optionLetter}. ${optionText}</label><br>`;
+            });
+        } else if (q.type === 'fill') {
+            questionsHTML += `<input type="text" class="fill-in-blank" name="${questionId}" placeholder="Nhập đáp án của bạn...">`;
+        }
+
         questionsHTML += `</div>`;
     });
     quizFormEl.querySelector('#submit-btn').insertAdjacentHTML('beforebegin', questionsHTML);
@@ -172,15 +184,16 @@ async function handleResultPage() {
 
     quizData.questions.forEach((q, index) => {
         const questionId = `q${q.originalIndex}`; 
-        const userAnswerText = userAnswers[questionId];
-        const correctAnswerText = q.answer;
+        const userAnswerText = userAnswers[questionId] ? userAnswers[questionId].trim() : "";
+        const correctAnswerText = q.answer.trim();
 
         reviewHTML += `<div class="review-item"><p><strong>Câu hỏi gốc ${index + 1}:</strong> ${q.text}</p>`;
 
         if (userAnswerText) {
-            reviewHTML += `<p><strong>Bạn chọn:</strong> ${userAnswerText}</p>`;
+            reviewHTML += `<p><strong>Bạn trả lời:</strong> ${userAnswerText}</p>`;
             
-            if (userAnswerText === correctAnswerText) {
+            // So sánh không phân biệt chữ hoa/thường cho câu hỏi điền
+            if (userAnswerText.toLowerCase() === correctAnswerText.toLowerCase()) {
                 score++;
                 reviewHTML += `<p class="review-correct">✅ Chính xác</p>`;
             } else {
