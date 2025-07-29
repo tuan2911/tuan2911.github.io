@@ -11,15 +11,18 @@ body {
     min-height: 100vh;
 }
 
+/* === PHẦN ĐÃ CẬP NHẬT === */
 .container {
     max-width: 800px;
     width: 100%;
     margin: 0 auto;
-    background-color: #CAF0F8; /* Nền vùng nội dung (xanh dương rất nhạt) */
+    /* Sử dụng rgba để thêm độ trong suốt (0.9 = 90% độ mờ) */
+    background-color: rgba(202, 240, 248, 0.9); 
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.15); 
 }
+/* === KẾT THÚC PHẦN CẬP NHẬT === */
 
 /* Header */
 .site-header {
@@ -64,6 +67,11 @@ body {
     text-decoration: none;
     font-weight: bold;
     margin: 0;
+    transition: color 0.3s ease;
+}
+
+.test-card:hover .test-title {
+    color: #ffffff; /* Đổi màu chữ thành trắng */
 }
 
 /* Giao diện trang quiz */
@@ -74,7 +82,7 @@ body {
     margin-bottom: 25px;
 }
 
-.question p, .question label, .student-info label {
+.question p, .question label {
     color: #023E8A; 
 }
 
@@ -160,12 +168,13 @@ button:hover, #submit-btn:hover {
     text-decoration: underline;
 }
 
-/* Style cho phần điền thông tin học sinh */
+/* Style cho phần điền thông tin và đáp án ngắn */
 .student-info {
     margin-bottom: 30px;
 }
 
-.student-info input[type="text"] {
+.student-info input[type="text"],
+.fill-in-blank {
     width: 100%; 
     padding: 12px; 
     border: 2px solid #48CAE4; 
@@ -177,41 +186,20 @@ button:hover, #submit-btn:hover {
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.student-info input[type="text"]:focus {
+.student-info input[type="text"]:focus,
+.fill-in-blank:focus {
     outline: none; 
     border-color: #0077B6; 
     box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.35); 
 }
 
-/* --- Style cho chữ gợi ý (placeholder) trong ô nhập tên --- */
-
 .student-info input[type="text"]::placeholder {
   font-weight: bold;
   color: #023E8A;
-  opacity: 0.6; /* Làm cho chữ hơi mờ đi một chút */
-}
-
-/* --- Style cho ô điền đáp án ngắn --- */
-
-.fill-in-blank {
-    width: 100%; 
-    padding: 12px; 
-    border: 2px solid #A1CCA5; 
-    background-color: #f7f9f7; 
-    border-radius: 8px; 
-    font-size: 1em;
-    color: #420217; 
-    box-sizing: border-box; 
-    transition: border-color 0.3s, box-shadow 0.3s;
+  opacity: 0.6;
 }
 
 .fill-in-blank::placeholder {
-    color: #420217;
-    opacity: 0.5;
-}
-
-.fill-in-blank:focus {
-    outline: none; 
-    border-color: #E3A587; 
-    box-shadow: 0 0 0 3px rgba(227, 165, 135, 0.35); 
+    color: #023E8A;
+    opacity: 0.6;
 }
