@@ -1,8 +1,8 @@
 /* Cài đặt chung và font chữ */
 body {
     font-family: 'Be Vietnam Pro', Arial, sans-serif;
-    background-color: #A1CCA5; /* Nền xanh mint */
-    color: #420217; /* Màu chữ chính (Đỏ sẫm) */
+    background-color: #0096C7; /* Nền xanh mint */
+    color: #023E8A; /* Màu chữ chính (Đỏ sẫm) */
     margin: 0;
     padding: 20px;
     display: flex;
@@ -15,7 +15,7 @@ body {
     max-width: 800px;
     width: 100%;
     margin: 0 auto;
-    background-color: #8FB996; /* NỀN VÙNG NỘI DUNG MỚI (Xanh rêu) */
+    background-color: #90E0EF; /* NỀN VÙNG NỘI DUNG MỚI (Xanh rêu) */
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.15); 
@@ -25,17 +25,17 @@ body {
 .site-header {
     text-align: center;
     margin-bottom: 40px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 2px solid #023E8A;
     padding-bottom: 20px;
 }
 
 .site-header h1 {
     font-size: 2.2em;
-    color: #ffffff; 
+    color: #023E8A; 
     text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
 
-/* === Giao diện danh sách chọn bài thi (Cập nhật theo yêu cầu) === */
+/* Giao diện danh sách chọn bài thi */
 .test-selection {
     display: flex;
     flex-direction: column;
@@ -45,22 +45,22 @@ body {
 .test-card {
     display: flex; 
     align-items: center; 
-    background-color: #A1CCA5; /* Nền xanh mint */
+    background-color: #00B4D8; /* Nền xanh mint */
     padding: 20px;
-    border: 3px solid #E3A587; /* Viền màu cam đào */
+    border: 3px solid #0077B6; /* Viền màu cam đào */
     border-radius: 12px;
     text-decoration: none;
     transition: all 0.3s ease;
 }
 
 .test-card:hover {
-    background-color: #709775; /* Nền chuyển sang xanh rêu đậm khi di chuột */
-    border-color: #E3A587; /* Giữ nguyên màu viền */
+    background-color: #0077B6; /* Nền chuyển sang xanh rêu đậm khi di chuột */
+    border-color: #0077B6; /* Giữ nguyên màu viền */
 }
 
 .test-title {
     font-size: 1.5em;
-    color: #420217; /* Màu chữ tiêu đề bài thi */
+    color: #CAF0F8; /* Màu chữ tiêu đề bài thi */
     text-decoration: none;
     font-weight: bold;
     margin: 0;
@@ -74,7 +74,7 @@ body {
     margin-bottom: 25px;
 }
 
-.question p, .question label, .student-info label {
+.question p, .question label {
     color: #420217; 
 }
 
@@ -161,14 +161,6 @@ button:hover, #submit-btn:hover {
 }
 
 /* Style cho phần điền thông tin học sinh */
-.student-info input[type="text"] {
-    background-color: rgba(255, 255, 255, 0.5);
-    border: 1px solid #A1CCA5;
-    color: #420217;
-}
-
-/* --- Style cho phần điền thông tin học sinh --- */
-
 .student-info {
     margin-bottom: 30px; /* Tạo khoảng cách với câu hỏi đầu tiên */
 }
@@ -192,7 +184,6 @@ button:hover, #submit-btn:hover {
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* Hiệu ứng khi người dùng nhấp vào ô nhập liệu */
 .student-info input[type="text"]:focus {
     outline: none; /* Bỏ viền mặc định của trình duyệt */
     border-color: #E3A587; /* Đổi màu viền sang cam đào */
