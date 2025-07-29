@@ -182,3 +182,36 @@ button:hover, #submit-btn:hover {
     border-color: #0077B6; 
     box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.35); 
 }
+
+/* --- Style cho chữ gợi ý (placeholder) trong ô nhập tên --- */
+
+.student-info input[type="text"]::placeholder {
+  font-weight: bold;
+  color: #023E8A;
+  opacity: 0.6; /* Làm cho chữ hơi mờ đi một chút */
+}
+
+/* --- Style cho ô điền đáp án ngắn --- */
+
+.fill-in-blank {
+    width: 100%; 
+    padding: 12px; 
+    border: 2px solid #A1CCA5; 
+    background-color: #f7f9f7; 
+    border-radius: 8px; 
+    font-size: 1em;
+    color: #420217; 
+    box-sizing: border-box; 
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.fill-in-blank::placeholder {
+    color: #420217;
+    opacity: 0.5;
+}
+
+.fill-in-blank:focus {
+    outline: none; 
+    border-color: #E3A587; 
+    box-shadow: 0 0 0 3px rgba(227, 165, 135, 0.35); 
+}

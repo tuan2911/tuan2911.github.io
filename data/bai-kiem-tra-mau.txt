@@ -14,3 +14,8 @@ O: 35
 O: 45
 A: 40
 E: Phép nhân cơ bản: 5 nhân 8 bằng 40.
+
+Q: Một con vịt xòe ra mấy cái cánh? (Nhập số)
+TYPE: fill
+A: 2
+E: Một con vịt thì chỉ có 2 cái cánh thôi
