@@ -1,21 +1,21 @@
-Hướng dẫn tạo bài kiểm tra mới
-Dự án này sử dụng một hệ thống linh hoạt để tạo bài kiểm tra mới một cách nhanh chóng bằng cách soạn thảo các tệp văn bản đơn giản (.txt).
+# Hướng dẫn tạo bài kiểm tra mới
 
-Quy trình tạo bài kiểm tra mới
+Dự án này sử dụng một hệ thống linh hoạt để tạo bài kiểm tra mới một cách nhanh chóng bằng cách soạn thảo các tệp văn bản đơn giản (`.txt`).
+
+## Quy trình tạo bài kiểm tra mới
+
 Để thêm một bài kiểm tra mới, bạn chỉ cần thực hiện 2 bước đơn giản:
+1.  Tạo một tệp `.txt` mới chứa nội dung bài kiểm tra trong thư mục `data/`.
+2.  Thêm một liên kết đến bài kiểm tra đó trong tệp `index.html`.
 
-Tạo một tệp .txt mới chứa nội dung bài kiểm tra trong thư mục data/.
+---
+### Bước 1: Tạo tệp dữ liệu `.txt`
 
-Thêm một liên kết đến bài kiểm tra đó trong tệp index.html.
+1.  Trong thư mục `data/`, tạo một tệp mới có đuôi `.txt`. Tên tệp nên viết liền không dấu, ví dụ: `hinh-hoc-chuong-1.txt`.
+2.  Mở tệp đó ra và soạn nội dung theo đúng định dạng dưới đây.
 
-## Bước 1: Tạo tệp dữ liệu .txt
-Trong thư mục data/, tạo một tệp mới có đuôi .txt. Tên tệp nên viết liền không dấu, ví dụ: hinh-hoc-chuong-1.txt.
-
-Mở tệp đó ra và soạn nội dung theo đúng định dạng dưới đây.
-
-Định dạng chuẩn:
-
-```Plaintext
+**Định dạng chuẩn:**
+```txt
 TITLE: [Tiêu đề sẽ hiển thị trên cùng của bài kiểm tra]
 ID: [mã_định_danh_duy_nhất_không_dấu]
 
@@ -31,9 +31,9 @@ A: [Nội dung lựa chọn ĐÚNG]
 O: [Nội dung lựa chọn SAI 2]
 E: [Nội dung giải thích cho câu hỏi]
 ```
-Ví dụ thực tế (tệp hinh-hoc-chuong-1.txt):
 
-```Plaintext
+**Ví dụ thực tế (tệp `hinh-hoc-chuong-1.txt`):**
+```txt
 TITLE: Kiểm tra Hình học Chương 1
 ID: hinh-hoc-chuong-1
 
@@ -50,29 +50,19 @@ O: Hình chữ nhật
 E: Tứ giác là một đa giác có 4 cạnh. Hình tam giác chỉ có 3 cạnh.
 ```
 
-## Bước 2: Thêm liên kết vào trang chủ (index.html)
-Mở tệp index.html.
+---
+### Bước 2: Thêm liên kết vào trang chủ (`index.html`)
 
-Tìm đến thẻ 
+1.  Mở tệp `index.html`.
+2.  Tìm đến thẻ `<main class="test-selection">`.
+3.  Sao chép một khối `<a href="..." class="test-card">...</a>` có sẵn và chỉnh sửa lại.
+
+**Quan trọng:**
+* Phần `href` phải trỏ đến `quiz.html?exam=` và theo sau là **mã ID** bạn đã đặt trong tệp `.txt`.
+* Sửa lại `h2` để hiển thị đúng tên bài kiểm tra trên nút bấm.
+
+**Ví dụ thêm bài "Kiểm tra Hình học Chương 1":**
 ```html
-<main class="test-selection">.
-```
-
-Sao chép một khối 
-```html
-<a href="..." class="test-card">...</a> 
-```
-có sẵn và chỉnh sửa lại.
-
-<u>**Quan trọng:**</u>
-
-Phần **href** phải trỏ đến **quiz.html?exam=** và theo sau là mã ID bạn đã đặt trong tệp .txt.
-
-Sửa lại h2 để hiển thị đúng tên bài kiểm tra trên nút bấm.
-
-Ví dụ thêm bài "Kiểm tra Hình học Chương 1":
-
-```HTML
 <main class="test-selection">
     <a href="quiz.html?exam=menhde" class="test-card">
         <div class="test-details">
@@ -85,5 +75,6 @@ Ví dụ thêm bài "Kiểm tra Hình học Chương 1":
             <h2 class="test-title">Kiểm tra Hình học Chương 1</h2>
         </div>
     </a>
-</main>
+    </main>
 ```
+Sau khi hoàn thành hai bước trên và tải các tệp đã thay đổi lên GitHub, bài kiểm tra mới sẽ xuất hiện trên trang chủ và sẵn sàng để sử dụng.

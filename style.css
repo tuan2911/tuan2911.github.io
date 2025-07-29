@@ -1,8 +1,8 @@
 /* Cài đặt chung và font chữ */
 body {
     font-family: 'Be Vietnam Pro', Arial, sans-serif;
-    background-color: #f5f7fa;
-    color: #333;
+    background-color: #A1CCA5; /* Nền xanh mint */
+    color: #420217; /* Màu chữ chính (Đỏ sẫm) */
     margin: 0;
     padding: 20px;
     display: flex;
@@ -15,168 +15,118 @@ body {
     max-width: 800px;
     width: 100%;
     margin: 0 auto;
-    background-color: #ffffff;
+    background-color: #8FB996; /* NỀN VÙNG NỘI DUNG MỚI (Xanh rêu) */
     padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15); 
 }
 
 /* Header */
 .site-header {
     text-align: center;
     margin-bottom: 40px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
     padding-bottom: 20px;
 }
 
 .site-header h1 {
     font-size: 2.2em;
-    color: #1a253c;
+    color: #ffffff; 
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
 
-.site-header p {
-    font-size: 1.1em;
-    color: #555;
-}
-
-/* === Giao diện danh sách chọn bài thi (MỚI) === */
+/* === Giao diện danh sách chọn bài thi (Cập nhật theo yêu cầu) === */
 .test-selection {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Khoảng cách giữa các bài thi */
+    gap: 20px;
 }
 
 .test-card {
-    display: flex; /* Sắp xếp biểu tượng và chữ theo hàng ngang */
-    align-items: center; /* Căn giữa các mục theo chiều dọc */
-    background-color: transparent; /* Bỏ màu nền của nút bấm */
-    padding: 15px;
-    border-radius: 8px;
+    display: flex; 
+    align-items: center; 
+    background-color: #A1CCA5; /* Nền xanh mint */
+    padding: 20px;
+    border: 3px solid #E3A587; /* Viền màu cam đào */
+    border-radius: 12px;
     text-decoration: none;
-    color: inherit; /* Lấy màu chữ từ thẻ cha */
-    box-shadow: none; /* Bỏ hiệu ứng bóng đổ */
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .test-card:hover {
-    background-color: #f0f4f8; /* Thêm hiệu ứng nền khi di chuột vào */
-    transform: none; /* Bỏ hiệu ứng nhấc lên */
+    background-color: #709775; /* Nền chuyển sang xanh rêu đậm khi di chuột */
+    border-color: #E3A587; /* Giữ nguyên màu viền */
 }
 
-/* Hiển thị lại biểu tượng và mô tả */
-.test-icon {
-    display: block; /* Hiển thị lại biểu tượng */
-    font-size: 2em;
-    margin-right: 15px;
-}
-
-.test-description {
-    display: block; /* Hiển thị lại mô tả */
-    font-size: 1em;
-    color: #555;
-    margin-top: 5px;
-}
-
-.test-details {
-    flex-grow: 1;
-}
-
-/* Định dạng lại tiêu đề */
 .test-title {
     font-size: 1.5em;
-    color: #0056b3; /* Đổi màu tiêu đề thành xanh dương */
-    text-decoration: underline; /* Thêm gạch chân */
+    color: #420217; /* Màu chữ tiêu đề bài thi */
+    text-decoration: none;
+    font-weight: bold;
     margin: 0;
-}
-/* === Kết thúc khối thay thế === */
-
-/* Footer */
-.site-footer {
-    text-align: center;
-    margin-top: 50px;
-    padding-top: 20px;
-    border-top: 1px solid #e0e0e0;
-    color: #888;
 }
 
 /* Giao diện trang quiz */
 .question {
+    background-color: rgba(255, 255, 255, 0.1); /* Nền trắng hơi mờ để tách biệt */
+    padding: 15px;
+    border-radius: 8px;
     margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #eeeeee;
 }
 
-.question p {
-    font-size: 1.1em;
-    margin-bottom: 10px;
+.question p, .question label, .student-info label {
+    color: #420217; 
 }
 
-.question label {
-    display: block;
-    margin-bottom: 8px;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 5px;
-}
-
-.question label:hover {
-    background-color: #f0f4f8;
-}
-
-button {
+/* Nút bấm */
+button, #submit-btn {
+    background-color: #E3A587;
+    color: #420217;
     display: block;
     width: 100%;
     padding: 15px;
-    background-color: #28a745;
-    color: white;
     border: none;
     border-radius: 5px;
     font-size: 1.2em;
+    font-weight: bold;
     cursor: pointer;
     margin-top: 20px;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, transform 0.2s;
 }
 
-button:hover {
-    background-color: #218838;
-}
-
-button:disabled {
-    background-color: grey;
-    cursor: not-allowed;
+button:hover, #submit-btn:hover {
+    background-color: #d89674;
+    transform: translateY(-2px);
 }
 
 /* Style cho phần xem lại */
 #result {
+    background-color: #f0fff0;
+    border-left: 5px solid #E3A587;
+    color: #420217;
     margin-top: 20px;
     padding: 15px;
     border-radius: 5px;
     font-size: 1.2em;
     font-weight: bold;
-    background-color: #e7f3ff;
-    border-left: 5px solid #005a9c;
 }
 
 #review-section h2 {
-    margin-top: 40px;
-    border-bottom: 2px solid #005a9c;
-    padding-bottom: 10px;
-    color: #005a9c;
+    color: #ffffff;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
 }
 
 .review-item {
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid #A1CCA5;
+    color: #420217;
     margin-bottom: 20px;
     padding: 15px;
-    border: 1px solid #ddd;
     border-radius: 8px;
 }
 
-.review-item p {
-    margin: 5px 0;
-}
-
 .review-correct {
-    color: #28a745;
+    color: #006400; /* Màu xanh lá đậm cho chữ "Chính xác" */
     font-weight: bold;
 }
 
@@ -186,57 +136,33 @@ button:disabled {
 }
 
 .review-correct-answer {
-    color: #28a745;
+    color: #006400;
     font-weight: bold;
 }
 
 .explanation {
-    margin-top: 10px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #E3A587;
+    color: #420217;
     padding: 10px;
-    background-color: #eef5fc;
-    border-left: 4px solid #007bff;
-    color: #333;
-    font-size: 0.95em;
+    margin-top: 10px;
 }
 
 .back-link {
+    color: #ffffff;
+    font-weight: bold;
     display: inline-block;
     margin-top: 20px;
-    color: #005a9c;
     text-decoration: none;
-    font-weight: bold;
 }
 
 .back-link:hover {
     text-decoration: underline;
 }
 
-/* --- Style cho phần điền thông tin học sinh --- */
-
-.student-info {
-    margin-bottom: 25px; /* Tạo khoảng cách với câu hỏi đầu tiên */
-}
-
-.student-info label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
-    color: #1a253c; /* Màu chữ đậm hơn */
-}
-
+/* Style cho phần điền thông tin học sinh */
 .student-info input[type="text"] {
-    width: 100%; /* Chiếm toàn bộ chiều ngang */
-    padding: 12px; /* Tăng không gian bên trong ô nhập */
-    border: 1px solid #ccc;
-    border-radius: 8px; /* Bo tròn góc */
-    font-size: 1em;
-    box-sizing: border-box; /* Quan trọng để padding không làm vỡ layout */
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-/* Hiệu ứng khi người dùng nhấp vào ô nhập liệu */
-.student-info input[type="text"]:focus {
-    outline: none; /* Bỏ viền mặc định của trình duyệt */
-    border-color: #007bff; /* Đổi màu viền sang xanh dương */
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Thêm hiệu ứng bóng mờ */
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid #A1CCA5;
+    color: #420217;
 }
