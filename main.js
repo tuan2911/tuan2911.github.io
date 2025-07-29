@@ -1,7 +1,7 @@
 // --- PHẦN CÀI ĐẶT GOOGLE FORM (Giữ nguyên) ---
 const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfNn5BF8oejY9kTGkoTLIO0BzhF99R9fURFA6avaASmXPw32w/formResponse';
 const NAME_ENTRY_ID = 'entry.1858710141';
-const QUIZ_NAME_ENTRY_ID = 'entry.1565538368'; // <-- Thay bằng mã Entry ID của bạn
+const QUIZ_NAME_ENTRY_ID = 'entry.1728486612'; // <-- Thay bằng mã Entry ID của bạn
 const SCORE_ENTRY_ID = 'entry.1307362548';
 // --- KẾT THÚC PHẦN CÀI ĐẶT ---
 
