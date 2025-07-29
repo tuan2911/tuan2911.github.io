@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kết quả bài kiểm tra</title>
+    <title>Đang tải bài kiểm tra...</title>
     <link rel="stylesheet" href="style.css">
     <script>
       MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
@@ -12,14 +12,17 @@
 </head>
 <body>
     <div class="container">
-        <h1>Kết quả bài làm</h1>
-        <div id="result"></div>
-        <div id="review-section">
-            <h2>Xem lại bài làm và giải thích</h2>
-            <div id="review-content"></div>
-        </div>
-        <a href="index.html" class="back-link">Quay về trang chủ</a>
+        <h1 id="quiz-title"></h1>
+        <form id="quiz-form">
+            <div class="student-info">
+                <label for="student-name">Họ và tên:</label>
+                <input type="text" id="student-name" required>
+            </div>
+            </form>
+        <button id="submit-btn">Nộp bài</button>
+        <a href="index.html" class="back-link">Quay lại trang chính</a>
     </div>
+
     <script src="main.js"></script>
 </body>
 </html>

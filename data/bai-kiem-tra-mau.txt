@@ -1,0 +1,18 @@
+TITLE: Bài ôn tập Mệnh đề
+ID: menhde
+
+Q: Khẳng định nào sau đây là một mệnh đề?
+O: Hôm nay trời đẹp quá!
+O: $x + 5 = 10$
+O: Số 9 là số chính phương.
+A: C
+E: Một mệnh đề là một khẳng định có thể xác định được tính đúng hoặc sai. "Số 9 là số chính phương" là một khẳng định đúng.
+
+Q: Mệnh đề "Nếu một số chia hết cho 4 thì nó chia hết cho 2" là mệnh đề đúng hay sai?
+O: Đúng
+O: Sai
+O: Không xác định được
+A: A
+E: Nếu một số chia hết cho 4 (ví dụ: 4, 8, 12) thì chắc chắn nó cũng chia hết cho 2. Giả thiết đúng luôn dẫn đến kết luận đúng.
+
+// Soạn các câu hỏi tiếp theo theo cấu trúc tương tự...
