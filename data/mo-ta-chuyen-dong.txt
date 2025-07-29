@@ -1,0 +1,72 @@
+TITLE: Bài ôn tập mô tả chuyển động
+ID: mo-ta-chuyen-dong
+
+Q: Hai xe chuyển động ngược chiều nhau trên cùng đoạn đường thẳng với các tốc độ không đổi. Lúc đầu, hai xe ở các vị trí A và B cách nhau 50 km và cùng xuất phát vào lúc 8 giờ 30 phút. Xe xuất phát từ A có tốc độ 60 km/h. Nếu hai xe gặp nhau lúc 9 giờ, vận tốc của xe xuất phát từ B là bao nhiêu?
+O: 50.00 km/h
+O: 30.00 km/h
+O: 60.00 km/h
+A: 40.00 km/h
+E: Thời gian hai xe gặp nhau là 30 phút (0.50 giờ). Quãng đường xe A đi được là $60 \text{ km/h} \times 0.50 \text{ h} = 30.00 \text{ km}$. Quãng đường xe B đi được là $50.00 \text{ km} - 30.00 \text{ km} = 20.00 \text{ km}$. Vận tốc xe B là $20.00 \text{ km} / 0.50 \text{ h} = 40.00 \text{ km/h}$.
+
+Q: Một chiếc máy bay đang bay từ Thành phố Hồ Chí Minh đến Thủ đô Hà Nội với tốc độ 525 km/h. Trong ngày hôm đó, gió thổi về hướng Nam với tốc độ 36 km/h. Quãng đường bay từ Thành phố Hồ Chí Minh đến Thủ đô Hà Nội khoảng 1160 km. Thời gian bay của máy bay trên quãng đường đó là bao nhiêu?
+O: 2.30 giờ
+O: 2.40 giờ
+O: 2.35 giờ
+A: 2.37 giờ
+E: Vì gió thổi về hướng Nam (ngược chiều bay của máy bay từ Nam ra Bắc), vận tốc thực của máy bay là $525 \text{ km/h} - 36 \text{ km/h} = 489 \text{ km/h}$. Thời gian bay là $1160 \text{ km} / 489 \text{ km/h} \approx 2.37 \text{ giờ}$.
+
+Q: Trong trận lũ lụt tại miền Trung vào tháng 10/2020, dòng lũ có tốc độ lên đến khoảng 4 m/s. Một đội cứu hộ đã sử dụng ca nô chạy với tốc độ 8 m/s so với dòng nước để cứu những người gặp nạn đang mắc kẹt trên một mái nhà cách trạm cứu hộ khoảng 2 km. Sau bao lâu đội cứu hộ đến được chỗ người bị nạn nếu họ phải đi xuôi dòng lũ?
+O: 160.00 giây
+O: 170.00 giây
+O: 165.00 giây
+A: 166.67 giây
+E: Khi đi xuôi dòng, vận tốc thực của ca nô so với bờ là $8 \text{ m/s} + 4 \text{ m/s} = 12 \text{ m/s}$. Quãng đường là 2 km = 2000 m. Thời gian đến chỗ người bị nạn là $2000 \text{ m} / 12 \text{ m/s} \approx 166.67 \text{ giây}$.
+
+Q: Một người đi bộ từ A đến B với vận tốc 5 km/h. Sau đó, người đó đi xe đạp từ B về A với vận tốc 15 km/h. Biết quãng đường AB dài 10 km. Tổng thời gian người đó đã di chuyển là bao nhiêu?
+O: 2.60 giờ
+O: 2.70 giờ
+O: 2.65 giờ
+A: 2.67 giờ
+E: Thời gian đi từ A đến B là $10 \text{ km} / 5 \text{ km/h} = 2.00 \text{ giờ}$. Thời gian đi từ B về A là $10 \text{ km} / 15 \text{ km/h} \approx 0.67 \text{ giờ}$. Tổng thời gian là $2.00 \text{ giờ} + 0.67 \text{ giờ} = 2.67 \text{ giờ}$.
+
+Q: Một ô tô khởi hành từ A lúc 7 giờ sáng và đến B lúc 10 giờ sáng. Biết quãng đường AB dài 180 km. Vận tốc trung bình của ô tô là bao nhiêu?
+O: 50.00 km/h
+O: 70.00 km/h
+O: 65.00 km/h
+A: 60.00 km/h
+E: Thời gian ô tô di chuyển là $10 \text{ giờ} - 7 \text{ giờ} = 3.00 \text{ giờ}$. Vận tốc trung bình là $180 \text{ km} / 3.00 \text{ giờ} = 60.00 \text{ km/h}$.
+
+Q: Một đoàn tàu dài 150 m chạy qua một cây cầu dài 850 m với vận tốc không đổi 36 km/h. Thời gian đoàn tàu đi qua hết cây cầu là bao nhiêu?
+O: 90.00 giây
+O: 110.00 giây
+O: 120.00 giây
+A: 100.00 giây
+E: Vận tốc của tàu là $36 \text{ km/h} = 10.00 \text{ m/s}$. Tổng quãng đường tàu phải đi là $150 \text{ m} + 850 \text{ m} = 1000.00 \text{ m}$. Thời gian tàu đi qua cầu là $1000.00 \text{ m} / 10.00 \text{ m/s} = 100.00 \text{ giây}$.
+
+Q: Hai xe máy cùng xuất phát từ một điểm và đi theo hai hướng vuông góc với nhau. Xe thứ nhất đi với vận tốc 30 km/h, xe thứ hai đi với vận tốc 40 km/h. Sau 2 giờ, khoảng cách giữa hai xe là bao nhiêu?
+O: 80.00 km
+O: 90.00 km
+O: 110.00 km
+A: 100.00 km
+E: Sau 2 giờ, xe thứ nhất đi được $30 \text{ km/h} \times 2.00 \text{ h} = 60.00 \text{ km}$. Xe thứ hai đi được $40 \text{ km/h} \times 2.00 \text{ h} = 80.00 \text{ km}$. Khoảng cách giữa hai xe là cạnh huyền của tam giác vuông, tính theo định lý Pythagoras: $\sqrt{60.00^2 + 80.00^2} = \sqrt{3600.00 + 6400.00} = \sqrt{10000.00} = 100.00 \text{ km}$.
+
+Q: Một con thuyền đi ngược dòng nước với vận tốc 10 km/h so với bờ. Biết vận tốc của dòng nước là 2 km/h. Vận tốc của thuyền khi đi xuôi dòng nước là bao nhiêu?
+O: 10.00 km/h
+O: 12.00 km/h
+O: 16.00 km/h
+A: 14.00 km/h
+E: Vận tốc thực của thuyền so với nước là $10 \text{ km/h} + 2 \text{ km/h} = 12.00 \text{ km/h}$. Khi đi xuôi dòng, vận tốc của thuyền so với bờ là $12.00 \text{ km/h} + 2 \text{ km/h} = 14.00 \text{ km/h}$.
+
+Q: Một vận động viên chạy 100 m trong 10 giây. Vận tốc trung bình của vận động viên đó là bao nhiêu?
+O: 8.00 m/s
+O: 9.00 m/s
+O: 11.00 m/s
+A: 10.00 m/s
+E: Vận tốc trung bình là $100 \text{ m} / 10 \text{ s} = 10.00 \text{ m/s}$.
+
+Q: Một xe buýt khởi hành lúc 6 giờ 30 phút và đến trạm cuối lúc 7 giờ 15 phút. Biết quãng đường xe buýt đã đi là 30 km. Vận tốc trung bình của xe buýt là bao nhiêu?
+O: 30.00 km/h
+O: 35.00 km/h
+O: 45.00 km/h
+A: 40.00 km/h
+E: Thời gian xe buýt di chuyển là $7 \text{ giờ } 15 \text{ phút} - 6 \text{ giờ } 30 \text{ phút} = 45 \text{ phút} = 0.75 \text{ giờ}$. Vận tốc trung bình là $30 \text{ km} / 0.75 \text{ giờ} = 40.00 \text{ km/h}$.
