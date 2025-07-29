@@ -18,7 +18,7 @@ function shuffleArray(array) {
 
 
 /**
- * Hàm phân tích nội dung từ file .txt thành đối tượng quiz
+ * Hàm phân tích nội dung từ file .txt thành đối tượng quiz - ĐÃ CẬP NHẬT
  */
 function parseQuizTxt(txt) {
     const lines = txt.trim().split('\n');
@@ -36,18 +36,18 @@ function parseQuizTxt(txt) {
             currentQuestion = {
                 text: line.replace('Q:', '').trim(),
                 originalIndex: quiz.questions.length,
-                options: [],
-                answer: '',
+                options: [], // Mảng chứa các lựa chọn
+                answer: '',  // Text của đáp án đúng
                 explanation: ''
             };
         } else if (line.startsWith('O:')) {
-            const optionLetter = String.fromCharCode(65 + (currentQuestion.options.length));
-            currentQuestion.options.push({
-                key: optionLetter,
-                value: line.replace('O:', '').trim()
-            });
+            // Đây là một đáp án SAI
+            currentQuestion.options.push(line.replace('O:', '').trim());
         } else if (line.startsWith('A:')) {
-            currentQuestion.answer = line.replace('A:', '').trim().toUpperCase();
+            // Đây là đáp án ĐÚNG
+            const correctAnswerText = line.replace('A:', '').trim();
+            currentQuestion.options.push(correctAnswerText);
+            currentQuestion.answer = correctAnswerText; // Lưu lại text của đáp án đúng
         } else if (line.startsWith('E:')) {
             currentQuestion.explanation = line.replace('E:', '').trim();
         }
@@ -75,7 +75,7 @@ async function fetchQuizData(examId) {
 
 
 /**
- * Logic cho trang làm bài thi (quiz.html)
+ * Logic cho trang làm bài thi (quiz.html) - ĐÃ CẬP NHẬT
  */
 async function handleQuizPage() {
     const quizTitleEl = document.getElementById('quiz-title');
@@ -96,6 +96,7 @@ async function handleQuizPage() {
         return;
     }
 
+    // Xáo trộn câu hỏi và các lựa chọn
     shuffleArray(quizData.questions);
     quizData.questions.forEach(q => shuffleArray(q.options));
 
@@ -108,15 +109,15 @@ async function handleQuizPage() {
         questionsHTML += `<div class="question" data-question-id="${questionId}">`;
         questionsHTML += `<p><strong>Câu ${index + 1}:</strong> ${q.text}</p>`;
         
-        q.options.forEach((opt, optionIdx) => {
-            const newOptionLetter = String.fromCharCode(65 + optionIdx);
-            questionsHTML += `<label><input type="radio" name="${questionId}" value="${opt.key}"> ${newOptionLetter}. ${opt.value}</label><br>`;
+        q.options.forEach((optionText, optionIdx) => {
+            const optionLetter = String.fromCharCode(65 + optionIdx);
+            // Giá trị của radio button là nội dung của lựa chọn
+            questionsHTML += `<label><input type="radio" name="${questionId}" value="${optionText}"> ${optionLetter}. ${optionText}</label><br>`;
         });
         questionsHTML += `</div>`;
     });
     quizFormEl.querySelector('#submit-btn').insertAdjacentHTML('beforebegin', questionsHTML);
 
-    // === PHẦN CẬP NHẬT: Đợi MathJax sẵn sàng rồi mới hiển thị ===
     if (window.MathJax && window.MathJax.startup) {
         MathJax.startup.promise.then(() => {
             MathJax.typesetPromise();
@@ -147,7 +148,7 @@ async function handleQuizPage() {
 
 
 /**
- * Logic cho trang xem kết quả (ket-qua.html)
+ * Logic cho trang xem kết quả (ket-qua.html) - ĐÃ CẬP NHẬT
  */
 async function handleResultPage() {
     const resultEl = document.getElementById('result');
@@ -171,25 +172,22 @@ async function handleResultPage() {
 
     quizData.questions.forEach((q, index) => {
         const questionId = `q${q.originalIndex}`; 
-        const userAnswerKey = userAnswers[questionId];
-        const correctAnswerKey = q.answer;
+        const userAnswerText = userAnswers[questionId];
+        const correctAnswerText = q.answer;
 
         reviewHTML += `<div class="review-item"><p><strong>Câu hỏi gốc ${index + 1}:</strong> ${q.text}</p>`;
 
-        if (userAnswerKey) {
-            const userAnswerText = q.options.find(opt => opt.key === userAnswerKey).value;
+        if (userAnswerText) {
             reviewHTML += `<p><strong>Bạn chọn:</strong> ${userAnswerText}</p>`;
             
-            if (userAnswerKey === correctAnswerKey) {
+            if (userAnswerText === correctAnswerText) {
                 score++;
                 reviewHTML += `<p class="review-correct">✅ Chính xác</p>`;
             } else {
-                const correctAnswerText = q.options.find(opt => opt.key === correctAnswerKey).value;
                 reviewHTML += `<p class="review-incorrect">❌ Sai rồi</p>`;
                 reviewHTML += `<p class="review-correct-answer"><strong>Đáp án đúng:</strong> ${correctAnswerText}</p>`;
             }
         } else {
-            const correctAnswerText = q.options.find(opt => opt.key === correctAnswerKey).value;
             reviewHTML += `<p><strong>Bạn chưa trả lời.</strong></p>`;
             reviewHTML += `<p class="review-correct-answer"><strong>Đáp án đúng:</strong> ${correctAnswerText}</p>`;
         }
@@ -200,8 +198,7 @@ async function handleResultPage() {
     const scoreText = `${score}/${totalQuestions}`;
     resultEl.innerHTML = `<h3>Kết quả của ${name}: ${scoreText} câu đúng!</h3>`;
     reviewContentEl.innerHTML = reviewHTML;
-
-    // === PHẦN CẬP NHẬT: Đợi MathJax sẵn sàng rồi mới hiển thị ===
+    
     if (window.MathJax && window.MathJax.startup) {
         MathJax.startup.promise.then(() => {
             MathJax.typesetPromise();

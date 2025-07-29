@@ -4,13 +4,11 @@ ID: bai-kiem-tra-mau
 Q: Thủ đô của Việt Nam là gì?
 O: TP. Hồ Chí Minh
 O: Đà Nẵng
-O: Hà Nội
-A: C
+A: Hà Nội
 E: Hà Nội là thủ đô của nước Cộng hòa Xã hội chủ nghĩa Việt Nam từ năm 1976.
 
 Q: 5 x 8 bằng bao nhiêu?
 O: 35
-O: 40
 O: 45
-A: B
+A: 40
 E: Phép nhân cơ bản: 5 nhân 8 bằng 40.
