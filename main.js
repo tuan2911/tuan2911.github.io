@@ -24,7 +24,6 @@ function parseQuizTxt(txt) {
     const lines = txt.trim().split('\n');
     const quiz = { title: '', id: '', questions: [] };
     let currentQuestion = null;
-    let optionIndex = 0;
 
     lines.forEach(line => {
         line = line.trim();
@@ -34,21 +33,19 @@ function parseQuizTxt(txt) {
             quiz.id = line.replace('ID:', '').trim();
         } else if (line.startsWith('Q:')) {
             if (currentQuestion) quiz.questions.push(currentQuestion);
-            optionIndex = 0;
             currentQuestion = {
                 text: line.replace('Q:', '').trim(),
-                originalIndex: quiz.questions.length, // Lưu lại thứ tự gốc
+                originalIndex: quiz.questions.length,
                 options: [],
                 answer: '',
                 explanation: ''
             };
         } else if (line.startsWith('O:')) {
-            const optionLetter = String.fromCharCode(65 + optionIndex);
+            const optionLetter = String.fromCharCode(65 + (currentQuestion.options.length));
             currentQuestion.options.push({
                 key: optionLetter,
                 value: line.replace('O:', '').trim()
             });
-            optionIndex++;
         } else if (line.startsWith('A:')) {
             currentQuestion.answer = line.replace('A:', '').trim().toUpperCase();
         } else if (line.startsWith('E:')) {
@@ -78,12 +75,11 @@ async function fetchQuizData(examId) {
 
 
 /**
- * Logic cho trang làm bài thi (quiz.html) - ĐÃ SỬA LỖI
+ * Logic cho trang làm bài thi (quiz.html)
  */
 async function handleQuizPage() {
     const quizTitleEl = document.getElementById('quiz-title');
     const quizFormEl = document.getElementById('quiz-form');
-    const submitBtn = document.getElementById('submit-btn');
 
     const urlParams = new URLSearchParams(window.location.search);
     const examId = urlParams.get('exam');
@@ -100,7 +96,6 @@ async function handleQuizPage() {
         return;
     }
 
-    // Xáo trộn câu hỏi và các lựa chọn
     shuffleArray(quizData.questions);
     quizData.questions.forEach(q => shuffleArray(q.options));
 
@@ -109,21 +104,27 @@ async function handleQuizPage() {
 
     let questionsHTML = '';
     quizData.questions.forEach((q, index) => {
-        // Sử dụng index gốc để đảm bảo ID không thay đổi
         const questionId = `q${q.originalIndex}`;
         questionsHTML += `<div class="question" data-question-id="${questionId}">`;
         questionsHTML += `<p><strong>Câu ${index + 1}:</strong> ${q.text}</p>`;
         
         q.options.forEach((opt, optionIdx) => {
             const newOptionLetter = String.fromCharCode(65 + optionIdx);
-            // Giá trị của radio button là key ('A', 'B', 'C'...)
             questionsHTML += `<label><input type="radio" name="${questionId}" value="${opt.key}"> ${newOptionLetter}. ${opt.value}</label><br>`;
         });
         questionsHTML += `</div>`;
     });
-    quizFormEl.insertAdjacentHTML('beforeend', questionsHTML);
+    quizFormEl.querySelector('#submit-btn').insertAdjacentHTML('beforebegin', questionsHTML);
 
-    submitBtn.addEventListener('click', () => {
+    // === PHẦN CẬP NHẬT: Đợi MathJax sẵn sàng rồi mới hiển thị ===
+    if (window.MathJax && window.MathJax.startup) {
+        MathJax.startup.promise.then(() => {
+            MathJax.typesetPromise();
+        });
+    }
+
+    quizFormEl.addEventListener('submit', (event) => {
+        event.preventDefault(); 
         const studentName = document.getElementById('student-name').value;
         if (!studentName) {
             alert('Vui lòng nhập đầy đủ Họ và tên!');
@@ -132,7 +133,6 @@ async function handleQuizPage() {
         const userAnswers = new FormData(quizFormEl);
         const answersObject = Object.fromEntries(userAnswers.entries());
         
-        // Lưu cả bài thi gốc (chưa xáo trộn) để chấm điểm
         const submissionData = {
             quizId: quizData.id,
             title: quizData.title,
@@ -147,7 +147,7 @@ async function handleQuizPage() {
 
 
 /**
- * Logic cho trang xem kết quả (ket-qua.html) - ĐÃ SỬA LỖI
+ * Logic cho trang xem kết quả (ket-qua.html)
  */
 async function handleResultPage() {
     const resultEl = document.getElementById('result');
@@ -159,7 +159,6 @@ async function handleResultPage() {
         return;
     }
 
-    // Tải lại dữ liệu gốc (chưa xáo trộn) để đảm bảo chấm đúng
     const quizData = await fetchQuizData(savedData.quizId);
     if (!quizData) {
         resultEl.innerHTML = '<h3>Lỗi tải dữ liệu bài kiểm tra để chấm.</h3>';
@@ -171,7 +170,7 @@ async function handleResultPage() {
     const { name, title, answers: userAnswers } = savedData;
 
     quizData.questions.forEach((q, index) => {
-        const questionId = `q${index}`; // ID câu hỏi trong dữ liệu gốc
+        const questionId = `q${q.originalIndex}`; 
         const userAnswerKey = userAnswers[questionId];
         const correctAnswerKey = q.answer;
 
@@ -179,7 +178,7 @@ async function handleResultPage() {
 
         if (userAnswerKey) {
             const userAnswerText = q.options.find(opt => opt.key === userAnswerKey).value;
-            reviewHTML += `<p><strong>Bạn chọn:</strong> ${userAnswerKey}. ${userAnswerText}</p>`;
+            reviewHTML += `<p><strong>Bạn chọn:</strong> ${userAnswerText}</p>`;
             
             if (userAnswerKey === correctAnswerKey) {
                 score++;
@@ -187,12 +186,12 @@ async function handleResultPage() {
             } else {
                 const correctAnswerText = q.options.find(opt => opt.key === correctAnswerKey).value;
                 reviewHTML += `<p class="review-incorrect">❌ Sai rồi</p>`;
-                reviewHTML += `<p class="review-correct-answer"><strong>Đáp án đúng:</strong> ${correctAnswerKey}. ${correctAnswerText}</p>`;
+                reviewHTML += `<p class="review-correct-answer"><strong>Đáp án đúng:</strong> ${correctAnswerText}</p>`;
             }
         } else {
             const correctAnswerText = q.options.find(opt => opt.key === correctAnswerKey).value;
             reviewHTML += `<p><strong>Bạn chưa trả lời.</strong></p>`;
-            reviewHTML += `<p class="review-correct-answer"><strong>Đáp án đúng:</strong> ${correctAnswerKey}. ${correctAnswerText}</p>`;
+            reviewHTML += `<p class="review-correct-answer"><strong>Đáp án đúng:</strong> ${correctAnswerText}</p>`;
         }
         reviewHTML += `<div class="explanation"><strong>Giải thích:</strong> ${q.explanation}</div></div>`;
     });
@@ -201,6 +200,13 @@ async function handleResultPage() {
     const scoreText = `${score}/${totalQuestions}`;
     resultEl.innerHTML = `<h3>Kết quả của ${name}: ${scoreText} câu đúng!</h3>`;
     reviewContentEl.innerHTML = reviewHTML;
+
+    // === PHẦN CẬP NHẬT: Đợi MathJax sẵn sàng rồi mới hiển thị ===
+    if (window.MathJax && window.MathJax.startup) {
+        MathJax.startup.promise.then(() => {
+            MathJax.typesetPromise();
+        });
+    }
     
     submitToGoogleForms(name, title, scoreText);
     localStorage.removeItem('submissionData');
