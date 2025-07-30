@@ -120,7 +120,7 @@ async function handleQuizPage() {
         if (q.type === 'choices') {
             q.options.forEach((optionText, optionIdx) => {
                 const optionLetter = String.fromCharCode(65 + optionIdx);
-                questionsHTML += `<label><input type="radio" name="${questionId}" value="${optionText}"> ${optionLetter}. ${optionText}</label><br>`;
+                questionsHTML += `<label><input type="radio" name="${questionId}" value="${optionText}"> <span class="option-prefix">${optionLetter}.</span> ${optionText}</label><br>`;
             });
         } else if (q.type === 'fill') {
             questionsHTML += `<input type="text" class="fill-in-blank" name="${questionId}" placeholder="Nhập đáp án của bạn...">`;
